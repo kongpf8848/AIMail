@@ -23,20 +23,20 @@ public class MessagesSyncManager {
     }
 
     private MessagesSyncManager() {
-        //QQ,163邮箱,填写授权码，GMail，Outlook邮箱需要走OAuth2认证
+        //username，password替换成自己的信息
         String username="xxx@163.com";
         String password="xxxxxx";
+        String hostname="imap.163.com";
         session = new IMAPSession();
         session.setUsername(username);
         session.setPassword(password);
-        session.setHostname("imap.163.com");
+        session.setHostname(hostname);
         session.setPort(993);
         session.setConnectionType(ConnectionType.ConnectionTypeTLS);
         IMAPIdentity imapIdentity = session.clientIdentity();
         imapIdentity.setName("jack");
         imapIdentity.setVendor("jack");
         imapIdentity.setVersion("0.0.1");
-
     }
 
 

@@ -19,6 +19,7 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
 
     public static final String ARG_ITEM_ID = "item_id";
 
+    private static final String TAG = "MessageViewDetail";
     private IMAPMessage message;
 
     public MessageViewDetailFragment() {
@@ -41,8 +42,8 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
         webView = rootView.findViewById(R.id.messageview_detail);
 
         if (message != null) {
-            Log.d("detail", "message: " + message);
-            renderingOp = MessagesSyncManager.singleton().session.htmlRenderingOperation(message, "INBOX");
+            Log.d(TAG, "message: " + message);
+            renderingOp = MessagesSyncManager.singleton().imapSession.htmlRenderingOperation(message, "INBOX");
             renderingOp.start(this);
         }
 
@@ -51,6 +52,7 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
 
     public void succeeded() {
         String html = renderingOp.result();
+        Log.d(TAG, "body: " + html);
         webView.loadDataWithBaseURL(null,html, "text/html", "utf-8",null);
     }
 

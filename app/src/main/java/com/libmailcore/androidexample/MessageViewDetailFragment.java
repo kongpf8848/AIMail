@@ -9,10 +9,15 @@ import android.webkit.WebView;
 import android.util.Log;
 
 
+import com.libmailcore.IMAPFetchParsedContentOperation;
 import com.libmailcore.MailException;
+import com.libmailcore.MessageParser;
 import com.libmailcore.OperationCallback;
 import com.libmailcore.IMAPMessage;
 import com.libmailcore.IMAPMessageRenderingOperation;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 
 public class MessageViewDetailFragment extends Fragment implements OperationCallback {
@@ -21,6 +26,7 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
 
     private static final String TAG = "MessageViewDetail";
     private IMAPMessage message;
+    private IMAPFetchParsedContentOperation fetchParsedContentOperation;
 
     public MessageViewDetailFragment() {
     }
@@ -28,11 +34,10 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         message = MessagesSyncManager.singleton().currentMessage;
     }
 
-    private IMAPMessageRenderingOperation renderingOp;
+    private IMAPFetchParsedContentOperation renderingOp;
     private WebView webView;
 
     @Override
@@ -42,8 +47,7 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
         webView = rootView.findViewById(R.id.messageview_detail);
 
         if (message != null) {
-            Log.d(TAG, "message: " + message);
-            renderingOp = MessagesSyncManager.singleton().imapSession.htmlRenderingOperation(message, "INBOX");
+            renderingOp =  MessagesSyncManager.singleton().imapSession.fetchParsedMessageByUIDOperation("INBOX",message.uid());
             renderingOp.start(this);
         }
 
@@ -51,7 +55,7 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
     }
 
     public void succeeded() {
-        String html = renderingOp.result();
+        String html = renderingOp.parser().htmlRendering();
         Log.d(TAG, "body: " + html);
         webView.loadDataWithBaseURL(null,html, "text/html", "utf-8",null);
     }

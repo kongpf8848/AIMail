@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.libmailcore.IMAPFetchMessagesOperation;
@@ -45,13 +46,13 @@ public class MessageViewListFragment extends ListFragment implements OperationCa
     }
 
     private IMAPFetchMessagesOperation fetchMessagesOp;
-    private IMAPFetchParsedContentOperation cc;
     private ArrayAdapter<MessageAdapter> adapter;
     private java.util.List<IMAPMessage> messages;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         fetchMessagesOp = MessagesSyncManager.singleton().imapSession.fetchMessagesByNumberOperation("INBOX", IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders | IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure, IndexSet.indexSetWithRange(new Range(1, Range.RangeMax)));
         fetchMessagesOp.start(this);
     }

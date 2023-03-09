@@ -20,7 +20,7 @@ public class MessageViewListActivity extends Activity implements MessageViewList
 
     @Override
     public void onItemSelected(IMAPMessage msg) {
-        MailCore2Api.singleton().currentMessage = msg;
+        MailCore2Api.getInstance().currentMessage = msg;
         Intent detailIntent = new Intent(this, MessageViewDetailActivity.class);
         startActivity(detailIntent);
 

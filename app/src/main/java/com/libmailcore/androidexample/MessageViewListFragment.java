@@ -11,14 +11,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.libmailcore.IMAPFetchMessagesOperation;
 import com.libmailcore.IMAPMessage;
 import com.libmailcore.MailException;
-import com.libmailcore.OperationCallback;
-import com.libmailcore.IndexSet;
-import com.libmailcore.IMAPMessagesRequestKind;
-import com.libmailcore.Range;
 import com.libmailcore.androidexample.api.MailCore2Api;
+import com.libmailcore.androidexample.api.SessionManager;
 
 public class MessageViewListFragment extends ListFragment {
 
@@ -52,7 +48,8 @@ public class MessageViewListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MailCore2Api.singleton().fetchMessages(Constants.INBOX, new UCallback<List<IMAPMessage>, MailException>() {
+        MailCore2Api.getInstance().setImapSession(SessionManager.getIMAPSession());
+        MailCore2Api.getInstance().fetchMessages(Constants.INBOX, new UCallback<List<IMAPMessage>, MailException>() {
             @Override
             public void succeeded(List<IMAPMessage> imapMessages) {
                 messages = imapMessages;

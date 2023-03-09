@@ -10,6 +10,6 @@ public class MessageAdapter {
     }
 
     public String toString() {
-        return message.header().from().displayName() + " " + message.header().extractedSubject();
+        return message.header().subject();
     }
 }

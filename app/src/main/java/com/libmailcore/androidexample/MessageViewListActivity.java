@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.libmailcore.IMAPMessage;
+import com.libmailcore.androidexample.api.MailCore2Api;
 
 
 public class MessageViewListActivity extends Activity implements MessageViewListFragment.Callbacks {
@@ -19,7 +20,7 @@ public class MessageViewListActivity extends Activity implements MessageViewList
 
     @Override
     public void onItemSelected(IMAPMessage msg) {
-        MessagesSyncManager.singleton().currentMessage = msg;
+        MailCore2Api.singleton().currentMessage = msg;
         Intent detailIntent = new Intent(this, MessageViewDetailActivity.class);
         startActivity(detailIntent);
 

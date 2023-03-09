@@ -1,32 +1,36 @@
 package com.libmailcore.androidexample;
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.util.Log;
+import android.widget.Button;
 
+import androidx.annotation.Nullable;
 
-import com.libmailcore.IMAPFetchParsedContentOperation;
-import com.libmailcore.MailException;
-import com.libmailcore.MessageParser;
-import com.libmailcore.OperationCallback;
 import com.libmailcore.IMAPMessage;
-import com.libmailcore.IMAPMessageRenderingOperation;
+import com.libmailcore.MailException;
+import com.libmailcore.OperationCallback;
+import com.libmailcore.androidexample.api.MailCore2Api;
+import com.libmailcore.androidexample.bean.MailInfo;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 
-public class MessageViewDetailFragment extends Fragment implements OperationCallback {
+public class MessageViewDetailFragment extends Fragment implements View.OnClickListener {
 
     public static final String ARG_ITEM_ID = "item_id";
 
     private static final String TAG = "MessageViewDetail";
     private IMAPMessage message;
-    private IMAPFetchParsedContentOperation fetchParsedContentOperation;
+    private MailInfo mailInfo;
+    private WebView webView;
+    private Button btn_unread;
+    private Button btn_banner;
+    private Button btn_save_eml;
 
     public MessageViewDetailFragment() {
     }
@@ -34,33 +38,77 @@ public class MessageViewDetailFragment extends Fragment implements OperationCall
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        message = MessagesSyncManager.singleton().currentMessage;
+        message = MailCore2Api.singleton().currentMessage;
     }
 
-    private IMAPFetchParsedContentOperation renderingOp;
-    private WebView webView;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_messageview_detail, container, false);
         webView = rootView.findViewById(R.id.messageview_detail);
+        btn_unread=rootView.findViewById(R.id.btn_unread);
+        btn_banner=rootView.findViewById(R.id.btn_banner);
+        btn_save_eml=rootView.findViewById(R.id.btn_save_eml);
 
-        if (message != null) {
-            renderingOp =  MessagesSyncManager.singleton().imapSession.fetchParsedMessageByUIDOperation("INBOX",message.uid());
-            renderingOp.start(this);
-        }
+        btn_unread.setOnClickListener(this);
+        btn_banner.setOnClickListener(this);
+        btn_save_eml.setOnClickListener(this);
 
         return rootView;
     }
 
-    public void succeeded() {
-        String html = renderingOp.parser().htmlRendering();
-        Log.d(TAG, "body: " + html);
-        webView.loadDataWithBaseURL(null,html, "text/html", "utf-8",null);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (message != null) {
+             MailCore2Api.singleton().getMail(Constants.INBOX, message.uid(), new UCallback<MailInfo, MailException>() {
+                @Override
+                public void succeeded(MailInfo mailInfo) {
+                    MessageViewDetailFragment.this.mailInfo=mailInfo;
+                    Log.d(TAG, "html: " + mailInfo.html);
+                    Log.d(TAG, "origin: " + new String(mailInfo.origin_data, StandardCharsets.UTF_8));
+                    webView.loadDataWithBaseURL(null,mailInfo.html, "text/html", "utf-8",null);
+                }
+
+                @Override
+                public void onFailed(MailException e) {
+                    Log.d(TAG, "failed() called with: exception = [" + e + "]");
+                }
+            });
+        }
     }
 
-    public void failed(MailException exception) {
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+        switch (id){
+            case R.id.btn_unread:
+                action_read(false);
+                break;
+            case R.id.btn_banner:
+                action_banner(true);
+                break;
+            case R.id.btn_save_eml:
+                action_save_eml();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void action_read(boolean b){
+        MailCore2Api.singleton().setRead(Constants.INBOX,message.uid(),b);
+    }
+
+    private void action_banner(boolean b){
+        MailCore2Api.singleton().setBanner(Constants.INBOX,message.uid(),b);
+    }
+
+    private void action_save_eml(){
+      if(mailInfo!=null){
+         Utils.writeFile(getActivity().getCacheDir().getAbsolutePath()+"/"+message.uid()+".eml",mailInfo.origin_data);
+      }
 
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.LocaleList;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Utils {
 
     public static File extractAsset(Context context, int assetResId, String folderName, String fileName) {
         File cacheFolder = new File(context.getCacheDir(), folderName);
-        if(!cacheFolder.exists()) {
+        if (!cacheFolder.exists()) {
             cacheFolder.mkdirs();
         }
         File outputFile = new File(cacheFolder, fileName);
@@ -38,6 +39,7 @@ public class Utils {
         }
         return outputFile;
     }
+
     public static String getDefaultLocale() {
         Locale locale = getLocale();
         String localeDef = locale.getLanguage() + "_" + locale.getCountry();
@@ -52,5 +54,39 @@ public class Utils {
             locale = Locale.getDefault();
         }
         return locale;
+    }
+
+
+    public static void writeFile(String path,byte[] bytes) {
+        File file = new File(path);
+        FileOutputStream outputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            outputStream = new FileOutputStream(file);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            bufferedOutputStream.write(bytes);
+            bufferedOutputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bufferedOutputStream != null) {
+                try {
+                    bufferedOutputStream.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+        }
     }
 }

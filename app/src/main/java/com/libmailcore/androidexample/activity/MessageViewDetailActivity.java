@@ -1,19 +1,21 @@
-package com.libmailcore.androidexample;
+package com.libmailcore.androidexample.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 
 import android.view.MenuItem;
 
+import com.libmailcore.androidexample.MessageViewDetailFragment;
+import com.libmailcore.androidexample.R;
 
-public class MessageViewDetailActivity extends Activity {
+
+public class MessageViewDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messageview_detail);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         if (savedInstanceState == null) {
 
 

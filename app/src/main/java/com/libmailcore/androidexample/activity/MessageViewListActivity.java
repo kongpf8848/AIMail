@@ -1,10 +1,13 @@
-package com.libmailcore.androidexample;
+package com.libmailcore.androidexample.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.libmailcore.IMAPMessage;
+import com.libmailcore.androidexample.MessageViewListFragment;
+import com.libmailcore.androidexample.R;
+import com.libmailcore.androidexample.activity.MessageViewDetailActivity;
 import com.libmailcore.androidexample.api.MailCore2Api;
 
 

@@ -2,6 +2,7 @@ package com.libmailcore.androidexample.api;
 
 import android.util.Log;
 
+import com.libmailcore.IMAPCapability;
 import com.libmailcore.IMAPFetchMessagesOperation;
 import com.libmailcore.IMAPFetchParsedContentOperation;
 import com.libmailcore.IMAPMessage;
@@ -16,6 +17,8 @@ import com.libmailcore.MessageParser;
 import com.libmailcore.Operation;
 import com.libmailcore.OperationCallback;
 import com.libmailcore.Range;
+import com.libmailcore.androidexample.Constants;
+import com.libmailcore.androidexample.R;
 import com.libmailcore.androidexample.UCallback;
 import com.libmailcore.androidexample.bean.MailInfo;
 
@@ -171,6 +174,7 @@ public class MailCore2Api {
      * @param uid
      */
     public void deleteMessage(String path, long uid) {
+
         IndexSet indexSet = new IndexSet();
         indexSet.addIndex(uid);
 
@@ -201,6 +205,30 @@ public class MailCore2Api {
                         Log.d(TAG, "onComplete() called");
                     }
                 });
+    }
+
+    public void syncMessage(){
+        int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindFlags | IMAPMessagesRequestKind.IMAPMessagesRequestKindInternalDate | IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders|IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders;
+        IndexSet indexSet=new IndexSet();
+        indexSet.addRange(new Range(1,Integer.MAX_VALUE));
+        IMAPFetchMessagesOperation op = imapSession.syncMessagesByUIDOperation(Constants.INBOX, requestKind, indexSet, 0);
+        op.start(new OperationCallback() {
+            @Override
+            public void succeeded() {
+                List<IMAPMessage> messages = op.messages();
+                for(IMAPMessage message:messages){
+                    Log.d(TAG, "succeeded() uid:"+message.uid());
+                    Log.d(TAG, "succeeded() flags:"+message.flags());
+                    Log.d(TAG, "succeeded() sequenceNumber:"+message.sequenceNumber());
+                    Log.d(TAG, "succeeded() size:"+message.size());
+                }
+            }
+
+            @Override
+            public void failed(MailException e) {
+                Log.d(TAG, "failed() called with: e = [" + e + "]");
+            }
+        });
     }
 
 }

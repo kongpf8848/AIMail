@@ -8,15 +8,15 @@ public class SessionManager {
 
     public static IMAPSession getIMAPSession(){
         //username，password替换成自己的信息
-        String username = "xxxxx@tom.com";
-        String password = "xxxx";
-        String hostname = "imap.tom.com";
+        String username = "xxx@163.com";
+        String password = "xxxxxx";
+        String hostname = "imap.163.com";
         IMAPSession imapSession = new IMAPSession();
         imapSession.setUsername(username);
         imapSession.setPassword(password);
         imapSession.setHostname(hostname);
-        imapSession.setPort(143);
-        imapSession.setConnectionType(ConnectionType.ConnectionTypeClear);
+        imapSession.setPort(993);
+        imapSession.setConnectionType(ConnectionType.ConnectionTypeTLS);
         imapSession.setTimeout(15);
         imapSession.setCheckCertificateEnabled(false);
         IMAPIdentity imapIdentity = imapSession.clientIdentity();

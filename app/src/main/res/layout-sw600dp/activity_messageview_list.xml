@@ -4,7 +4,7 @@
     android:layout_marginRight="16dp" android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal" android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="com.libmailcore.androidexample.MessageViewListActivity">
+    tools:context="com.libmailcore.androidexample.activity.MessageViewListActivity">
 
     <!--
     This layout is a two-pane layout for the MessagesViews

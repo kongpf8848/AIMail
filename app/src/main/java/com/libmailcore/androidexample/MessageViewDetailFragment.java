@@ -115,7 +115,8 @@ public class MessageViewDetailFragment extends Fragment implements View.OnClickL
     }
 
     private void action_delete(){
-        MailCore2Api.getInstance().deleteMessage(Constants.INBOX,message.uid());
+        //MailCore2Api.getInstance().deleteMessage(Constants.INBOX,message.uid());
+        MailCore2Api.getInstance().syncMessage();
     }
 
 

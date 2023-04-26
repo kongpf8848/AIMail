@@ -19,7 +19,7 @@ public class LoginActivity extends OAuthActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         btn_outlook=findViewById(R.id.btn_outlook);
         btn_imap=findViewById(R.id.btn_imap);
         btn_outlook.setOnClickListener(v -> {
@@ -42,10 +42,8 @@ public class LoginActivity extends OAuthActivity{
         jumpToMessageList();
     }
 
-
     private void onClickOutlook(){
-        String address="pengfei736@outlook.com";
-        doAuth(OAuthConfig.OUTLOOK,address);
+        doAuth(OAuthConfig.OUTLOOK,null);
     }
 
     private void onClickImap() {

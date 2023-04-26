@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.kongpf8848.dmail.bean.OAuthToken;
+import com.kongpf8848.dmail.http.DMApiService;
 import com.kongpf8848.dmail.oauth.OAuthConfig;
 
 import net.openid.appauth.AuthorizationException;
@@ -21,8 +22,9 @@ import net.openid.appauth.ClientAuthentication;
 import net.openid.appauth.ClientSecretPost;
 import net.openid.appauth.NoClientAuthentication;
 import net.openid.appauth.ResponseTypeValues;
+import net.openid.appauth.TokenResponse;
 
-public abstract class OAuthActivity extends BaseActivity{
+public abstract class OAuthActivity extends BaseActivity {
 
     public static final int RC_OAUTH = 4099;
 
@@ -49,15 +51,15 @@ public abstract class OAuthActivity extends BaseActivity{
             AuthorizationException ex = AuthorizationException.fromIntent(data);
             if (resp != null) {
                 getAuthorizationCodeSuccess(resp);
-            } else if(ex!=null) {
-                    ex.printStackTrace();
+            } else if (ex != null) {
+                ex.printStackTrace();
             }
         }
     }
 
-    protected void doAuth(OAuthConfig config,String address) {
-        this.config=config;
-        this.address=address;
+    protected void doAuth(OAuthConfig config, String address) {
+        this.config = config;
+        this.address = address;
 
         AuthorizationServiceConfiguration serviceConfig = new AuthorizationServiceConfiguration(
                 Uri.parse(config.authorizeURL),
@@ -78,25 +80,33 @@ public abstract class OAuthActivity extends BaseActivity{
     }
 
     private void getAuthorizationCodeSuccess(AuthorizationResponse r) {
-        ClientAuthentication authentication=null;
-        if(!TextUtils.isEmpty(config.clientSecret)){
-            authentication=new ClientSecretPost(config.clientSecret);
-        }else{
-            authentication=NoClientAuthentication.INSTANCE;
+        ClientAuthentication authentication = null;
+        if (!TextUtils.isEmpty(config.clientSecret)) {
+            authentication = new ClientSecretPost(config.clientSecret);
+        } else {
+            authentication = NoClientAuthentication.INSTANCE;
         }
-        authService.performTokenRequest(r.createTokenExchangeRequest(),authentication,(resp, ex) -> {
+        authService.performTokenRequest(r.createTokenExchangeRequest(), authentication, (resp, ex) -> {
             Log.d(TAG, "getAuthorizationCodeSuccess() called with: resp = [" + resp + "]");
             if (resp != null) {
-
-                OAuthToken token = new OAuthToken();
-                token.identifier=config.identifier;
-                token.access_token = resp.accessToken;
-                token.refresh_token = resp.refreshToken;
-                token.expire_time=resp.accessTokenExpirationTime;
-                onOAuthTokenSuccess(this.address, token);
+                getUserInfo(resp);
             } else {
                 Log.e(TAG, "getAuthorizationCodeSuccess() called with: ex = [" + ex + "]");
             }
+        });
+    }
+
+    private void getUserInfo( TokenResponse resp){
+        DMApiService.INSTANCE.getUserInfoForOutlook(resp.accessToken).subscribe(outlookUserInfoResp -> {
+            this.address=outlookUserInfoResp.emails.account;
+            OAuthToken token = new OAuthToken();
+            token.identifier = config.identifier;
+            token.access_token = resp.accessToken;
+            token.refresh_token = resp.refreshToken;
+            token.expire_time = resp.accessTokenExpirationTime;
+            onOAuthTokenSuccess(this.address, token);
+        }, throwable -> {
+            throwable.printStackTrace();
         });
     }
 

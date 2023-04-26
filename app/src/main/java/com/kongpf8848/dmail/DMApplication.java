@@ -6,7 +6,7 @@ import com.libmailcore.MailCoreInit;
 
 import java.io.File;
 
-public class MainApplication extends Application {
+public class DMApplication extends Application {
 
     @Override
     public void onCreate() {

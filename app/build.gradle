@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -39,5 +41,11 @@ dependencies {
     implementation AndroidX.appCompat
     implementation BuildDependencies.rxjava2
     implementation BuildDependencies.rxAndroid
+    implementation BuildDependencies.okhttp
+    implementation BuildDependencies.retrofit
+    implementation BuildDependencies.retrofitConverterGson
+    implementation BuildDependencies.retrofitAdapterRxjava2
     implementation BuildDependencies.appAuth
+    implementation BuildDependencies.kotlinStdlib
+    implementation BuildDependencies.kotlinStdlibJdk7
 }

@@ -1,4 +1,4 @@
-# MailCore2Example
+# DMail
 演示使用[MailCore2](https://github.com/MailCore/mailcore2)类库拉取邮件和查看邮件详情的Demo。
 # 说明
 mailcore2-android-4.aar非官方版本，经过修改和重新打包。

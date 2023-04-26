@@ -1,2 +1,3 @@
-rootProject.name="MailCore2Example"
+rootProject.name="DMail"
 include ':app'
+include ':lib_res'

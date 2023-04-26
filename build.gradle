@@ -1,18 +1,17 @@
 
 buildscript {
     repositories {
-        jcenter()
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath "com.android.tools.build:gradle:${Versions.PLUGIN_GRADLE_VERSION}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN_VERSION}"
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
         google()
         mavenCentral()
     }

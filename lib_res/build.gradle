@@ -1,43 +1,36 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
     namespace Config.applicationId
-
     compileSdkVersion Config.compileSdkVersion
+
     defaultConfig {
-        applicationId Config.applicationId
         minSdkVersion Config.minSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode Config.versionCode
         versionName Config.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-}
-
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation(name: 'mailcore2-android-4', ext: 'aar')
-    implementation project(':lib_res')
     implementation AndroidX.appCompat
-    implementation BuildDependencies.rxjava2
-    implementation BuildDependencies.rxAndroid
-    implementation BuildDependencies.appAuth
+    implementation AndroidX.material
+    testImplementation BuildDependencies.junit
+    androidTestImplementation AndroidX.junitExtension
+    androidTestImplementation AndroidX.espresso
 }

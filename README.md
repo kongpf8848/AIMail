@@ -4,6 +4,8 @@
 mailcore2-android-4.aar非官方版本，经过修改和重新打包。
 
 # 使用
+## Outlook邮箱
+直接点击Outlook登录
 
 ## 163/QQ等需要使用密码/授权码登录的邮箱
 替换以下代码中的username,password等信息

@@ -13,8 +13,8 @@ import java.util.List;
 
 import com.libmailcore.IMAPMessage;
 import com.libmailcore.MailException;
-import com.libmailcore.androidexample.api.MailCore2Api;
-import com.libmailcore.androidexample.api.SessionManager;
+import com.libmailcore.androidexample.mailcore.MailCore2Api;
+import com.libmailcore.androidexample.mailcore.SessionManager;
 
 public class MessageViewListFragment extends ListFragment {
 
@@ -48,7 +48,6 @@ public class MessageViewListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MailCore2Api.getInstance().setImapSession(SessionManager.getIMAPSession());
         MailCore2Api.getInstance().fetchMessages(Constants.INBOX, new UCallback<List<IMAPMessage>, MailException>() {
             @Override
             public void succeeded(List<IMAPMessage> imapMessages) {

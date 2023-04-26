@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.libmailcore.androidexample">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -33,6 +34,20 @@
             android:name=".activity.MessageViewDetailActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_messageview_detail" />
+
+
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            android:exported="true"
+            tools:node="replace"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="msauth" android:host="com.fsck.k9.debug"/>
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.libmailcore.IMAPMessage;
 import com.libmailcore.MailException;
-import com.libmailcore.androidexample.api.MailCore2Api;
+import com.libmailcore.androidexample.mailcore.MailCore2Api;
 import com.libmailcore.androidexample.bean.MailInfo;
 
 import java.nio.charset.StandardCharsets;

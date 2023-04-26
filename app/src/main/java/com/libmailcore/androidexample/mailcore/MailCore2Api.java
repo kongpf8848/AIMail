@@ -1,8 +1,7 @@
-package com.libmailcore.androidexample.api;
+package com.libmailcore.androidexample.mailcore;
 
 import android.util.Log;
 
-import com.libmailcore.IMAPCapability;
 import com.libmailcore.IMAPFetchMessagesOperation;
 import com.libmailcore.IMAPFetchParsedContentOperation;
 import com.libmailcore.IMAPMessage;
@@ -18,7 +17,6 @@ import com.libmailcore.Operation;
 import com.libmailcore.OperationCallback;
 import com.libmailcore.Range;
 import com.libmailcore.androidexample.Constants;
-import com.libmailcore.androidexample.R;
 import com.libmailcore.androidexample.UCallback;
 import com.libmailcore.androidexample.bean.MailInfo;
 

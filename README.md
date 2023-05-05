@@ -5,22 +5,11 @@ mailcore2-android-4.aar非官方版本，经过修改和重新打包。
 
 # 使用
 ## Outlook邮箱
-直接点击Outlook登录
+点击Outlook进行OAuth2授权
 
 ## 163/QQ等需要使用密码/授权码登录的邮箱
-替换以下代码中的username,password等信息
-```java
-private void onClickImap() {
-    String username="xxxx@163.com";
-    String password="xxxx";
-    String host="imap.163.com";
-    int connectType= ConnectionType.ConnectionTypeTLS;
-    int port=993;
-    MailCore2Api.getInstance().setImapSession(SessionManager.buildImapSession(username,password,host,port,connectType,null));
+点击IMAP，然后输入用户名、密码进行登录
 
-    jumpToMessageList();
-}
-```
 
 
     

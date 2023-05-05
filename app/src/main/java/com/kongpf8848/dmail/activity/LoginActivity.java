@@ -47,14 +47,8 @@ public class LoginActivity extends OAuthActivity{
     }
 
     private void onClickImap() {
-        String username="xxxx@163.com";
-        String password="xxxx";
-        String host="imap.163.com";
-        int connectType= ConnectionType.ConnectionTypeTLS;
-        int port=993;
-        MailCore2Api.getInstance().setImapSession(SessionManager.buildImapSession(username,password,host,port,connectType,null));
-
-        jumpToMessageList();
+        Intent intent=new Intent(this,IMAPLoginActivity.class);
+        startActivity(intent);
     }
 
     private void jumpToMessageList(){

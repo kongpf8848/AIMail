@@ -27,6 +27,11 @@
         </activity>
 
         <activity
+            android:name=".activity.IMAPLoginActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
             android:name=".activity.MessageViewListActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_messageview_list" />

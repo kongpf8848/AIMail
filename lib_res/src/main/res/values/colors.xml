@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff4aa794</color>
-    <color name="colorPrimaryDark">#ff4aa794</color>
-    <color name="colorAccent">#03dac5</color>
-    <color name="white">#ffffffff</color>
-    <color name="black">#ff000000</color>
+    <color name="colorPrimary">#FF007AFF</color>
+    <color name="colorPrimaryDark">#FF007AFF</color>
+    <color name="colorAccent">#FF007AFF</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
     <color name="transparent">#00000000</color>
-    <color name="red">#ffff0000</color>
-    <color name="green">#ff00ff00</color>
-    <color name="blue">#ff0000ff</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="blue">#FF0000FF</color>
 
-    <color name="ic_launcher_background">#3DDC84</color>
-    <color name="chat_progress_bg">#999999</color>
-    <color name="chat_progress_bg_stroke">#888888</color>
+    <color name="color_ff007aff">#FF007AFF</color>
 
-    <color name="spark_blue">#ff007cff</color>
+
 </resources>

@@ -39,6 +39,7 @@ dependencies {
     implementation(name: 'mailcore2-android-4', ext: 'aar')
     implementation project(':lib_res')
     implementation AndroidX.appCompat
+    implementation AndroidX.material
     implementation BuildDependencies.rxjava2
     implementation BuildDependencies.rxAndroid
     implementation BuildDependencies.okhttp

@@ -17,7 +17,7 @@
             android:id="@+id/btn_outlook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Outlook"
+            android:text="@string/outlook"
             android:textColor="@color/black"
             />
 
@@ -25,8 +25,8 @@
             android:id="@+id/btn_imap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="IMAP邮箱"
+            android:layout_marginTop="30dp"
+            android:text="@string/imap"
             />
 
     </LinearLayout>

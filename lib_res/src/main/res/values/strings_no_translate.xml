@@ -2,6 +2,7 @@
 <resources>
 
     <string name="outlook" translatable="false">Outlook</string>
+    <string name="gmail" translatable="false">Gmail</string>
     <string name="imap" translatable="false">IMAP</string>
 
 </resources>

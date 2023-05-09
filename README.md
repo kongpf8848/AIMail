@@ -7,6 +7,9 @@ mailcore2-android-4.aar非官方版本，经过修改和重新打包。
 ## Outlook邮箱
 点击Outlook进行OAuth2授权
 
+## Gmail邮箱
+点击Gmail进行OAuth2授权
+
 ## 163/QQ等需要使用密码/授权码登录的邮箱
 点击IMAP，然后输入用户名、密码进行登录
 

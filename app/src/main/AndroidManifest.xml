@@ -13,11 +13,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
+        android:largeHeap="true"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:label="login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,12 +47,22 @@
             android:exported="true"
             tools:node="replace"
             >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="com.googleusercontent.apps.262622259280-5qb3vtj68d5dtudmaif4g9vd3cpar8r3" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="msauth" android:host="com.fsck.k9.debug"/>
             </intent-filter>
+
+
         </activity>
 
     </application>

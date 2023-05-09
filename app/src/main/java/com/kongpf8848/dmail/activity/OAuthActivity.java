@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.kongpf8848.dmail.bean.OAuthToken;
 import com.kongpf8848.dmail.http.DMApiService;
 import com.kongpf8848.dmail.oauth.OAuthConfig;
+import com.kongpf8848.dmail.util.TokenUtils;
 
 import net.openid.appauth.AuthorizationException;
 import net.openid.appauth.AuthorizationRequest;
@@ -89,14 +90,24 @@ public abstract class OAuthActivity extends BaseActivity {
         authService.performTokenRequest(r.createTokenExchangeRequest(), authentication, (resp, ex) -> {
             Log.d(TAG, "getAuthorizationCodeSuccess() called with: resp = [" + resp + "]");
             if (resp != null) {
-                getUserInfo(resp);
+                if(config.isOutlook()) {
+                    getUserInfoForOutlook(resp);
+                }else if(config.isGmail()){
+                    this.address=TokenUtils.getEmailFromIdToken(resp.idToken);
+                    OAuthToken token = new OAuthToken();
+                    token.identifier = config.identifier;
+                    token.access_token = resp.accessToken;
+                    token.refresh_token = resp.refreshToken;
+                    token.expire_time = resp.accessTokenExpirationTime;
+                    onOAuthTokenSuccess(this.address, token);
+                }
             } else {
                 Log.e(TAG, "getAuthorizationCodeSuccess() called with: ex = [" + ex + "]");
             }
         });
     }
 
-    private void getUserInfo( TokenResponse resp){
+    private void getUserInfoForOutlook( TokenResponse resp){
         DMApiService.INSTANCE.getUserInfoForOutlook(resp.accessToken).subscribe(outlookUserInfoResp -> {
             this.address=outlookUserInfoResp.emails.account;
             OAuthToken token = new OAuthToken();

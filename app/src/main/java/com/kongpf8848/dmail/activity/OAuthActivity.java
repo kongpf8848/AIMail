@@ -88,11 +88,22 @@ public abstract class OAuthActivity extends BaseActivity {
             authentication = NoClientAuthentication.INSTANCE;
         }
         authService.performTokenRequest(r.createTokenExchangeRequest(), authentication, (resp, ex) -> {
-            Log.d(TAG, "getAuthorizationCodeSuccess() called with: resp = [" + resp + "]");
             if (resp != null) {
+                Log.d(TAG, "getAuthorizationCodeSuccess() called with: resp = [" + resp.jsonSerializeString() + "]");
                 if(config.isOutlook()) {
                     getUserInfoForOutlook(resp);
-                }else if(config.isGmail()){
+                } else if(config.isYahoo()){
+                    this.address=TokenUtils.getEmailFromIdToken(resp.idToken);
+                    if(TextUtils.isEmpty(this.address)){
+                       getUserInfoForYahoo(resp);
+                    }
+                    OAuthToken token = new OAuthToken();
+                    token.identifier = config.identifier;
+                    token.access_token = resp.accessToken;
+                    token.refresh_token = resp.refreshToken;
+                    token.expire_time = resp.accessTokenExpirationTime;
+                    onOAuthTokenSuccess(this.address, token);
+                } else if(config.isGmail()){
                     this.address=TokenUtils.getEmailFromIdToken(resp.idToken);
                     OAuthToken token = new OAuthToken();
                     token.identifier = config.identifier;
@@ -108,8 +119,22 @@ public abstract class OAuthActivity extends BaseActivity {
     }
 
     private void getUserInfoForOutlook( TokenResponse resp){
-        DMApiService.INSTANCE.getUserInfoForOutlook(resp.accessToken).subscribe(outlookUserInfoResp -> {
-            this.address=outlookUserInfoResp.emails.account;
+        DMApiService.INSTANCE.getUserInfoForOutlook(resp.accessToken).subscribe(userInfo -> {
+            this.address=userInfo.emails.account;
+            OAuthToken token = new OAuthToken();
+            token.identifier = config.identifier;
+            token.access_token = resp.accessToken;
+            token.refresh_token = resp.refreshToken;
+            token.expire_time = resp.accessTokenExpirationTime;
+            onOAuthTokenSuccess(this.address, token);
+        }, throwable -> {
+            throwable.printStackTrace();
+        });
+    }
+
+    private void getUserInfoForYahoo( TokenResponse resp){
+        DMApiService.INSTANCE.getUserInfoForYahoo(resp.accessToken).subscribe(userInfo -> {
+            this.address=userInfo.getEmail();
             OAuthToken token = new OAuthToken();
             token.identifier = config.identifier;
             token.access_token = resp.accessToken;

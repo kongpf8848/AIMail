@@ -4,13 +4,18 @@ import java.util.Objects;
 
 public enum OAuthConfig {
 
-    OUTLOOK(OutlookProvider.identifier,OutlookProvider.clientID, null,OutlookProvider.authorizeURL,
+    GMAIL(GmailProvider.identifier,GmailProvider.clientID, GmailProvider.clientSecret, GmailProvider.authorizeURL,
+            GmailProvider.tokenURL, GmailProvider.refreshTokenURL,
+            GmailProvider.redirectURL, GmailProvider.scope),
+
+    OUTLOOK(OutlookProvider.identifier,OutlookProvider.clientID, OutlookProvider.clientSecret, OutlookProvider.authorizeURL,
             OutlookProvider.tokenURL, OutlookProvider.refreshTokenURL,
             OutlookProvider.redirectURL, OutlookProvider.scope),
 
-    GMAIL(GmailProvider.identifier,GmailProvider.clientID, null,GmailProvider.authorizeURL,
-            GmailProvider.tokenURL, GmailProvider.refreshTokenURL,
-            GmailProvider.redirectURL, GmailProvider.scope);
+    YAHOO(YahooProvider.identifier,YahooProvider.clientID, YahooProvider.clientSecret, YahooProvider.authorizeURL,
+            YahooProvider.tokenURL, YahooProvider.refreshTokenURL,
+            YahooProvider.redirectURL, YahooProvider.scope);
+
 
     public String identifier;
     public String clientID;
@@ -34,6 +39,10 @@ public enum OAuthConfig {
 
     public boolean isOutlook(){
         return Objects.equals(identifier, OUTLOOK.identifier);
+    }
+
+    public boolean isYahoo(){
+        return Objects.equals(identifier, YAHOO.identifier);
     }
 
     public boolean isGmail(){

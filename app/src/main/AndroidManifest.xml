@@ -62,6 +62,13 @@
                 <data android:scheme="msauth" android:host="com.fsck.k9.debug"/>
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="com.kongpf8848.dmail" android:path="//oauth2redirect"/>
+            </intent-filter>
+
 
         </activity>
 

@@ -14,8 +14,9 @@ import com.kongpf8848.dmail.oauth.OAuthConfig;
 
 public class LoginActivity extends OAuthActivity{
 
-    private Button btn_outlook;
     private Button btn_gmail;
+    private Button btn_outlook;
+    private Button btn_yahoo;
     private Button btn_imap;
     private MailConfig imapConfig;
 
@@ -23,14 +24,18 @@ public class LoginActivity extends OAuthActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        btn_outlook=findViewById(R.id.btn_outlook);
         btn_gmail=findViewById(R.id.btn_gmail);
+        btn_outlook=findViewById(R.id.btn_outlook);
+        btn_yahoo=findViewById(R.id.btn_yahoo);
         btn_imap=findViewById(R.id.btn_imap);
+        btn_gmail.setOnClickListener(v -> {
+            onClickGmail();
+        });
         btn_outlook.setOnClickListener(v -> {
             onClickOutlook();
         });
-        btn_gmail.setOnClickListener(v -> {
-            onClickGmail();
+        btn_yahoo.setOnClickListener(v -> {
+            onClickYahoo();
         });
         btn_imap.setOnClickListener(v -> {
             onClickImap();
@@ -45,6 +50,14 @@ public class LoginActivity extends OAuthActivity{
         jumpToMessageList();
     }
 
+    private void onClickGmail(){
+        imapConfig=new MailConfig();
+        imapConfig.host="imap.gmail.com";
+        imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
+        imapConfig.port=993;
+        doAuth(OAuthConfig.GMAIL,null);
+    }
+
     private void onClickOutlook(){
         imapConfig=new MailConfig();
         imapConfig.host="imap-mail.outlook.com";
@@ -53,12 +66,12 @@ public class LoginActivity extends OAuthActivity{
         doAuth(OAuthConfig.OUTLOOK,null);
     }
 
-    private void onClickGmail(){
+    private void onClickYahoo(){
         imapConfig=new MailConfig();
-        imapConfig.host="imap.gmail.com";
+        imapConfig.host="imap.mail.yahoo.com";
         imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
         imapConfig.port=993;
-        doAuth(OAuthConfig.GMAIL,null);
+        doAuth(OAuthConfig.YAHOO,null);
     }
 
     private void onClickImap() {

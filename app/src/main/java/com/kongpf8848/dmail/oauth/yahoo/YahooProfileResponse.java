@@ -1,8 +1,25 @@
-package com.kongpf8848.dmail.bean.server.resp;
+package com.kongpf8848.dmail.oauth.yahoo;
 
-import com.kongpf8848.dmail.bean.server.BaseEntity;
-
-public class YahooUserInfoResp extends BaseEntity {
+/**
+ * {
+ * "sub": "AN4FL4S53NXH6QJHJRVMAM2PLE",
+ * "name": "xxx",
+ * "given_name": "xxx",
+ * "family_name": "xxx",
+ * "locale": "zh-CN",
+ * "email": "xxx@yahoo.com",
+ * "email_verified": true,
+ * "profile_images": {
+ * "image32": "xxx.jpg",
+ * "image64": "xxx.jpg",
+ * "image128": "xxx.jpg",
+ * "image192": "xxx.jpg"
+ * },
+ * "nickname": "xxx",
+ * "picture": "xxx.jpg"
+ * }
+ */
+public class YahooProfileResponse {
 
     private String sub;
     private String name;

@@ -21,8 +21,8 @@ public class SessionManager {
 
         if (token != null) {
             imapSession.setOAuth2Token(token.access_token);
-            switch (token.identifier) {
-                case "Outlook":
+            switch (token.accountType) {
+                case TYPE_HOTMAIL:
                     imapSession.setAuthType(AuthType.AuthTypeXOAuth2Outlook);
                     break;
                 default:
@@ -51,8 +51,8 @@ public class SessionManager {
 
         if (token != null) {
             smtpSession.setOAuth2Token(token.access_token);
-            switch (token.identifier) {
-                case "Outlook":
+            switch (token.accountType) {
+                case TYPE_HOTMAIL:
                     smtpSession.setAuthType(AuthType.AuthTypeXOAuth2Outlook);
                     break;
                 default:

@@ -6,11 +6,11 @@ import android.widget.Button;
 
 import com.kongpf8848.dmail.R;
 import com.kongpf8848.dmail.bean.MailConfig;
+import com.kongpf8848.dmail.oauth.OAuthModule;
 import com.libmailcore.ConnectionType;
 import com.kongpf8848.dmail.bean.OAuthToken;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;
 import com.kongpf8848.dmail.mailcore.SessionManager;
-import com.kongpf8848.dmail.oauth.OAuthConfig;
 
 public class LoginActivity extends OAuthActivity{
 
@@ -55,7 +55,7 @@ public class LoginActivity extends OAuthActivity{
         imapConfig.host="imap.gmail.com";
         imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
         imapConfig.port=993;
-        doAuth(OAuthConfig.GMAIL,null);
+        doAuth(OAuthModule.provideGoogleConfiguration(),null);
     }
 
     private void onClickOutlook(){
@@ -63,7 +63,7 @@ public class LoginActivity extends OAuthActivity{
         imapConfig.host="imap-mail.outlook.com";
         imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
         imapConfig.port=993;
-        doAuth(OAuthConfig.OUTLOOK,null);
+        doAuth(OAuthModule.provideHotmailConfiguration(),null);
     }
 
     private void onClickYahoo(){
@@ -71,7 +71,7 @@ public class LoginActivity extends OAuthActivity{
         imapConfig.host="imap.mail.yahoo.com";
         imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
         imapConfig.port=993;
-        doAuth(OAuthConfig.YAHOO,null);
+        doAuth(OAuthModule.provideYahooConfiguration(),null);
     }
 
     private void onClickImap() {

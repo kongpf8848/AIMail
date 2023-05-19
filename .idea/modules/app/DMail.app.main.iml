@@ -14,6 +14,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/138d5aafbbc133eb812b601b229ac758/transformed/jetified-kotlin-android-extensions-runtime-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/49f55a3a9cdbfcf024eebe80ad9fe65e/transformed/jetified-converter-gson-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f9a72be3bfed2a754842b31644e2ef12/transformed/jetified-adapter-rxjava2-2.9.0.jar</arg>

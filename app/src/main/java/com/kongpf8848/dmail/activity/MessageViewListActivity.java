@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.kongpf8848.dmail.R;
 import com.libmailcore.IMAPMessage;
-import com.kongpf8848.dmail.MessageViewListFragment;
+import com.kongpf8848.dmail.messagelist.MessageViewListFragment;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;
 
 

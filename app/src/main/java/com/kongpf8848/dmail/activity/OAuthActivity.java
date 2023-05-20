@@ -10,13 +10,11 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.kongpf8848.dmail.bean.OAuthToken;
-import com.kongpf8848.dmail.oauth.AuthorizationHeader;
-import com.kongpf8848.dmail.oauth.DMAccountType;
-import com.kongpf8848.dmail.oauth.OAuthConfiguration;
-import com.kongpf8848.dmail.oauth.hotmail.HotmailModule;
-import com.kongpf8848.dmail.oauth.hotmail.HotmailProfile;
-import com.kongpf8848.dmail.oauth.yahoo.YahooModule;
-import com.kongpf8848.dmail.oauth.yahoo.YahooProfileResponse;
+import com.kongpf8848.dmail.login.oauth.AuthorizationHeader;
+import com.kongpf8848.dmail.login.oauth.DMAccountType;
+import com.kongpf8848.dmail.login.oauth.OAuthConfiguration;
+import com.kongpf8848.dmail.login.oauth.hotmail.HotmailModule;
+import com.kongpf8848.dmail.login.oauth.yahoo.YahooModule;
 import com.kongpf8848.dmail.util.TokenUtils;
 
 import net.openid.appauth.AuthorizationException;
@@ -31,7 +29,6 @@ import net.openid.appauth.ResponseTypeValues;
 import net.openid.appauth.TokenResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.schedulers.Schedulers;
 
 public abstract class OAuthActivity extends BaseActivity {

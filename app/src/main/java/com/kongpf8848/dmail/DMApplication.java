@@ -2,6 +2,7 @@ package com.kongpf8848.dmail;
 
 import android.app.Application;
 
+import com.kongpf8848.dmail.util.Utils;
 import com.libmailcore.MailCoreInit;
 
 import java.io.File;

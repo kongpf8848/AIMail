@@ -16,7 +16,7 @@
         android:largeHeap="true"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

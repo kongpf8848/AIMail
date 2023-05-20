@@ -1,6 +1,6 @@
-package com.kongpf8848.dmail.oauth.yahoo;
+package com.kongpf8848.dmail.login.oauth.yahoo;
 
-import com.kongpf8848.dmail.oauth.AuthorizationHeader;
+import com.kongpf8848.dmail.login.oauth.AuthorizationHeader;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

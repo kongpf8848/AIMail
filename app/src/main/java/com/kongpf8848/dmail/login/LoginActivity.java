@@ -1,18 +1,21 @@
-package com.kongpf8848.dmail.activity;
+package com.kongpf8848.dmail.login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.kongpf8848.dmail.R;
+import com.kongpf8848.dmail.activity.IMAPLoginActivity;
+import com.kongpf8848.dmail.activity.MessageViewListActivity;
+import com.kongpf8848.dmail.activity.OAuthActivity;
 import com.kongpf8848.dmail.bean.MailConfig;
-import com.kongpf8848.dmail.oauth.OAuthModule;
+import com.kongpf8848.dmail.login.oauth.OAuthModule;
 import com.libmailcore.ConnectionType;
 import com.kongpf8848.dmail.bean.OAuthToken;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;
 import com.kongpf8848.dmail.mailcore.SessionManager;
 
-public class LoginActivity extends OAuthActivity{
+public class LoginActivity extends OAuthActivity {
 
     private Button btn_gmail;
     private Button btn_outlook;
@@ -75,12 +78,12 @@ public class LoginActivity extends OAuthActivity{
     }
 
     private void onClickImap() {
-        Intent intent=new Intent(this,IMAPLoginActivity.class);
+        Intent intent=new Intent(this, IMAPLoginActivity.class);
         startActivity(intent);
     }
 
     private void jumpToMessageList(){
-        Intent intent=new Intent(this,MessageViewListActivity.class);
+        Intent intent=new Intent(this, MessageViewListActivity.class);
         startActivity(intent);
     }
 }

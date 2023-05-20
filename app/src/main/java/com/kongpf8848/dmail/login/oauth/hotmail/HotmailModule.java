@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail.oauth.hotmail;
+package com.kongpf8848.dmail.login.oauth.hotmail;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

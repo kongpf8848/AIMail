@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail;
+package com.kongpf8848.dmail.util;
 
 public class DomainUtils {
     public static String getDomain(String username){

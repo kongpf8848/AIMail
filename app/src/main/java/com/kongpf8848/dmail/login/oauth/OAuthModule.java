@@ -1,8 +1,8 @@
-package com.kongpf8848.dmail.oauth;
+package com.kongpf8848.dmail.login.oauth;
 
-import com.kongpf8848.dmail.oauth.google.GoogleOAuthConfiguration;
-import com.kongpf8848.dmail.oauth.hotmail.HotmailOAuthConfiguration;
-import com.kongpf8848.dmail.oauth.yahoo.YahooOAuthConfiguration;
+import com.kongpf8848.dmail.login.oauth.google.GoogleOAuthConfiguration;
+import com.kongpf8848.dmail.login.oauth.hotmail.HotmailOAuthConfiguration;
+import com.kongpf8848.dmail.login.oauth.yahoo.YahooOAuthConfiguration;
 
 public class OAuthModule {
 

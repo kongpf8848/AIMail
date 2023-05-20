@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail;
+package com.kongpf8848.dmail.util;
 
 import android.content.Context;
 import android.os.Build;

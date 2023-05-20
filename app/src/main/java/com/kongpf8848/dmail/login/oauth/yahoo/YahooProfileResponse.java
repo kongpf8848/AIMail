@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail.oauth.yahoo;
+package com.kongpf8848.dmail.login.oauth.yahoo;
 
 /**
  * {

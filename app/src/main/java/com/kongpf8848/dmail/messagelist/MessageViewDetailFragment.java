@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail;
+package com.kongpf8848.dmail.messagelist;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
+import com.kongpf8848.dmail.util.Constants;
+import com.kongpf8848.dmail.R;
+import com.kongpf8848.dmail.util.UCallback;
+import com.kongpf8848.dmail.util.Utils;
 import com.libmailcore.IMAPMessage;
 import com.libmailcore.MailException;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;

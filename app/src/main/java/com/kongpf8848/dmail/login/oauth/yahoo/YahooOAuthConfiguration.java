@@ -1,7 +1,7 @@
-package com.kongpf8848.dmail.oauth.yahoo;
+package com.kongpf8848.dmail.login.oauth.yahoo;
 
-import com.kongpf8848.dmail.oauth.DMAccountType;
-import com.kongpf8848.dmail.oauth.OAuthConfiguration;
+import com.kongpf8848.dmail.login.oauth.DMAccountType;
+import com.kongpf8848.dmail.login.oauth.OAuthConfiguration;
 
 import java.util.Arrays;
 import java.util.List;

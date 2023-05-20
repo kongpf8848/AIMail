@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail.oauth;
+package com.kongpf8848.dmail.login.oauth;
 
 import java.util.List;
 

@@ -16,8 +16,8 @@ import com.libmailcore.MessageParser;
 import com.libmailcore.Operation;
 import com.libmailcore.OperationCallback;
 import com.libmailcore.Range;
-import com.kongpf8848.dmail.Constants;
-import com.kongpf8848.dmail.UCallback;
+import com.kongpf8848.dmail.util.Constants;
+import com.kongpf8848.dmail.util.UCallback;
 import com.kongpf8848.dmail.bean.MailInfo;
 
 import java.util.List;

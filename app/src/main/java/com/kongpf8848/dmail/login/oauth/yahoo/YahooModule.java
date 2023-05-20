@@ -1,6 +1,4 @@
-package com.kongpf8848.dmail.oauth.yahoo;
-
-import com.kongpf8848.dmail.oauth.hotmail.HotmailApi;
+package com.kongpf8848.dmail.login.oauth.yahoo;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

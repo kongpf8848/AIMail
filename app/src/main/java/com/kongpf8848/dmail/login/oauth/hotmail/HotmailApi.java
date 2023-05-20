@@ -1,6 +1,6 @@
-package com.kongpf8848.dmail.oauth.hotmail;
+package com.kongpf8848.dmail.login.oauth.hotmail;
 
-import com.kongpf8848.dmail.oauth.AuthorizationHeader;
+import com.kongpf8848.dmail.login.oauth.AuthorizationHeader;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail;
+package com.kongpf8848.dmail.messagelist;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kongpf8848.dmail.util.Constants;
+import com.kongpf8848.dmail.util.UCallback;
 import com.libmailcore.IMAPMessage;
 import com.libmailcore.MailException;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;

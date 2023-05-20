@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.kongpf8848.dmail.MessageViewDetailFragment;
+import com.kongpf8848.dmail.messagelist.MessageViewDetailFragment;
 import com.kongpf8848.dmail.R;
 
 

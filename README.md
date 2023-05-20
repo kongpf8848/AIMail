@@ -1,17 +1,18 @@
 # DMail
-演示使用[MailCore2](https://github.com/MailCore/mailcore2)类库拉取邮件和查看邮件详情的Demo。
-# 说明
-mailcore2-android-4.aar非官方版本，经过修改和重新打包。
+Open Source Email App for Android
 
-# 使用
-## Outlook邮箱
-点击Outlook进行OAuth2授权
+# Description
+mailcore2-android-4.aar is unofficial version, modified and repackaged.
 
-## Gmail邮箱
-点击Gmail进行OAuth2授权
+# Usage
+## Outlook/HotMail
+Click on Outlook for OAuth2 authorization
 
-## 163/QQ等需要使用密码/授权码登录的邮箱
-点击IMAP，然后输入用户名、密码进行登录
+## Gmail
+Click on Gmail for OAuth2 authorization
+
+## IMAP
+Click IMAP and enter your user name and password/authorization code to log in
 
 
 

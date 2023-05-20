@@ -1,8 +1,6 @@
-package com.kongpf8848.dmail.util;
+package com.kongpf8848.dmail.util
 
-public interface UCallback<K,T> {
-
-    void succeeded(K k);
-
-    void onFailed(T t);
+interface UCallback<K, T> {
+    fun succeeded(k: K)
+    fun onFailed(t: T)
 }

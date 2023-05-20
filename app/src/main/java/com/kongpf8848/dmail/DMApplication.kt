@@ -1,25 +1,20 @@
-package com.kongpf8848.dmail;
+package com.kongpf8848.dmail
 
-import android.app.Application;
+import android.app.Application
+import com.kongpf8848.dmail.util.Utils
+import com.libmailcore.MailCoreInit
 
-import com.kongpf8848.dmail.util.Utils;
-import com.libmailcore.MailCoreInit;
-
-import java.io.File;
-
-public class DMApplication extends Application {
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        initMailCore();
+class DMApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        initMailCore2()
     }
 
-    private void initMailCore() {
-        File icuDataFile = Utils.extractAsset(this,R.raw.icudt62l, "icud", "icudt62l.dat");
-        String icuDataPath = icuDataFile.getParentFile().getAbsolutePath();
-        MailCoreInit mailCoreInit = new MailCoreInit();
-        mailCoreInit.setLogEnabled(BuildConfig.DEBUG ? 1 : 0);
-        mailCoreInit.setLocaleData(Utils.getDefaultLocale(), icuDataPath);
+    private fun initMailCore2() {
+        val icuDataFile = Utils.extractAsset(this, R.raw.icudt62l, "icud", "icudt62l.dat")
+        val icuDataPath = icuDataFile.parentFile.absolutePath
+        val mailCoreInit = MailCoreInit()
+        mailCoreInit.setLogEnabled(if (BuildConfig.DEBUG) 1 else 0)
+        mailCoreInit.setLocaleData(Utils.defaultLocale, icuDataPath)
     }
 }

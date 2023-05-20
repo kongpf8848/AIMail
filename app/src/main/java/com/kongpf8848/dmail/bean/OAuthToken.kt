@@ -1,13 +1,15 @@
-package com.kongpf8848.dmail.bean;
+package com.kongpf8848.dmail.bean
 
-import com.kongpf8848.dmail.login.oauth.DMAccountType;
+import com.kongpf8848.dmail.login.oauth.DMAccountType
+import java.io.Serializable
 
-import java.io.Serializable;
-
-public class OAuthToken implements Serializable {
-    public DMAccountType accountType;
-    public String access_token;
-    public String refresh_token;
-    public Long expire_time;
-
+class OAuthToken : Serializable {
+    @JvmField
+    var accountType: DMAccountType? = null
+    @JvmField
+    var access_token: String? = null
+    @JvmField
+    var refresh_token: String? = null
+    @JvmField
+    var expire_time: Long? = null
 }

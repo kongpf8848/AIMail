@@ -1,9 +1,12 @@
-package com.kongpf8848.dmail.bean;
+package com.kongpf8848.dmail.bean
 
-public class MailConfig {
-    public String host;
-    public int port;
-    public int connection_type;
-    public String username;
-    public String password;
+class MailConfig {
+    @JvmField
+    var host: String? = null
+    @JvmField
+    var port = 0
+    @JvmField
+    var connection_type = 0
+    var username: String? = null
+    var password: String? = null
 }

@@ -1,24 +1,22 @@
-package com.kongpf8848.dmail.util;
+package com.kongpf8848.dmail.util
 
-import android.util.Base64;
+import android.util.Base64
+import org.json.JSONObject
+import java.lang.Exception
+import java.nio.charset.StandardCharsets
 
-import org.json.JSONObject;
-
-import java.nio.charset.StandardCharsets;
-
-public class TokenUtils {
-
-    public static String getEmailFromIdToken(String idToken) {
+object TokenUtils {
+    fun getEmailFromIdToken(idToken: String): String {
         try {
-            String[] split = idToken.split("\\.");
-            String jwtBody = split[1];
-            byte[] decodedBodyBytes = Base64.decode(jwtBody, Base64.URL_SAFE);
-            String body = new String(decodedBodyBytes, StandardCharsets.UTF_8);
-            JSONObject jsonObject=new JSONObject(body);
-            return jsonObject.optString("email");
-        } catch (Exception e) {
-            e.printStackTrace();
+            val split = idToken.split("\\.").toTypedArray()
+            val jwtBody = split[1]
+            val decodedBodyBytes = Base64.decode(jwtBody, Base64.URL_SAFE)
+            val body = String(decodedBodyBytes, StandardCharsets.UTF_8)
+            val jsonObject = JSONObject(body)
+            return jsonObject.optString("email")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        return "";
+        return ""
     }
 }

@@ -1,59 +1,19 @@
-package com.kongpf8848.dmail.mailcore;
+package com.kongpf8848.dmail.mailcore
 
-import android.util.Log;
+import android.util.Log
+import com.kongpf8848.dmail.bean.MailInfo
+import com.kongpf8848.dmail.util.Constants
+import com.kongpf8848.dmail.util.UCallback
+import com.libmailcore.*
+import io.reactivex.*
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Function
 
-import com.libmailcore.IMAPFetchMessagesOperation;
-import com.libmailcore.IMAPFetchParsedContentOperation;
-import com.libmailcore.IMAPMessage;
-import com.libmailcore.IMAPMessagesRequestKind;
-import com.libmailcore.IMAPOperation;
-import com.libmailcore.IMAPSession;
-import com.libmailcore.IMAPStoreFlagsRequestKind;
-import com.libmailcore.IndexSet;
-import com.libmailcore.MailException;
-import com.libmailcore.MessageFlag;
-import com.libmailcore.MessageParser;
-import com.libmailcore.Operation;
-import com.libmailcore.OperationCallback;
-import com.libmailcore.Range;
-import com.kongpf8848.dmail.util.Constants;
-import com.kongpf8848.dmail.util.UCallback;
-import com.kongpf8848.dmail.bean.MailInfo;
-
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-
-public class MailCore2Api {
-
-    private static final String TAG = "MailCore2Api";
-
-    private IMAPSession imapSession;
-    public IMAPMessage currentMessage;
-
-    private static MailCore2Api instance;
-
-    public static MailCore2Api getInstance() {
-        if (instance == null) {
-            synchronized (MailCore2Api.class) {
-                if (instance == null) {
-                    instance = new MailCore2Api();
-                }
-            }
-        }
-        return instance;
-    }
-
-    private MailCore2Api() {
-    }
-
-    public void setImapSession(IMAPSession imapSession){
-        this.imapSession=imapSession;
+class MailCore2Api private constructor() {
+    private var imapSession: IMAPSession? = null
+    var currentMessage: IMAPMessage? = null
+    fun setImapSession(imapSession: IMAPSession?) {
+        this.imapSession = imapSession
     }
 
     /**
@@ -63,8 +23,8 @@ public class MailCore2Api {
      * @param uid
      * @param b
      */
-    public void setRead(String path, long uid, boolean b) {
-        markMail(path, uid, b, MessageFlag.MessageFlagSeen);
+    fun setRead(path: String, uid: Long, b: Boolean) {
+        markMail(path, uid, b, MessageFlag.MessageFlagSeen)
     }
 
     /**
@@ -74,26 +34,25 @@ public class MailCore2Api {
      * @param uid
      * @param b
      */
-    public void setBanner(String path, long uid, boolean b) {
-        markMail(path, uid, b, MessageFlag.MessageFlagFlagged);
+    fun setBanner(path: String, uid: Long, b: Boolean) {
+        markMail(path, uid, b, MessageFlag.MessageFlagFlagged)
     }
 
-    private void markMail(String path, long uid, boolean b, int flag) {
-        int kind = b ? IMAPStoreFlagsRequestKind.IMAPStoreFlagsRequestKindAdd : IMAPStoreFlagsRequestKind.IMAPStoreFlagsRequestKindRemove;
-        IndexSet indexSet = new IndexSet();
-        indexSet.addIndex(uid);
-        IMAPOperation imapOperation = imapSession.storeFlagsByUIDOperation(path, indexSet, kind, flag);
-        imapOperation.start(new OperationCallback() {
-            @Override
-            public void succeeded() {
-                Log.d(TAG, "succeeded() called");
+    private fun markMail(path: String, uid: Long, b: Boolean, flag: Int) {
+        val kind =
+            if (b) IMAPStoreFlagsRequestKind.IMAPStoreFlagsRequestKindAdd else IMAPStoreFlagsRequestKind.IMAPStoreFlagsRequestKindRemove
+        val indexSet = IndexSet()
+        indexSet.addIndex(uid)
+        val imapOperation = imapSession!!.storeFlagsByUIDOperation(path, indexSet, kind, flag)
+        imapOperation.start(object : OperationCallback {
+            override fun succeeded() {
+                Log.d(TAG, "succeeded() called")
             }
 
-            @Override
-            public void failed(MailException e) {
-                Log.d(TAG, "failed() called with: e = [" + e + "]");
+            override fun failed(e: MailException) {
+                Log.d(TAG, "failed() called with: e = [$e]")
             }
-        });
+        })
     }
 
     /**
@@ -103,20 +62,24 @@ public class MailCore2Api {
      * @param uid
      * @param callback
      */
-    public void getMessage(String path, long uid, UCallback<MailInfo, MailException> callback) {
-        IMAPFetchParsedContentOperation operation = imapSession.fetchParsedMessageByUIDOperation(path, uid);
-        operation.start(new OperationCallback() {
-            @Override
-            public void succeeded() {
-                MessageParser parser = operation.parser();
-                callback.succeeded(new MailInfo(parser.htmlRendering(), parser.htmlBodyRendering(), parser.data()));
+    fun getMessage(path: String?, uid: Long, callback: UCallback<MailInfo, MailException>) {
+        val operation = imapSession!!.fetchParsedMessageByUIDOperation(path, uid)
+        operation.start(object : OperationCallback {
+            override fun succeeded() {
+                val parser = operation.parser()
+                callback.succeeded(
+                    MailInfo(
+                        parser.htmlRendering(),
+                        parser.htmlBodyRendering(),
+                        parser.data()
+                    )
+                )
             }
 
-            @Override
-            public void failed(MailException e) {
-                callback.onFailed(e);
+            override fun failed(e: MailException) {
+                callback.onFailed(e)
             }
-        });
+        })
     }
 
     /**
@@ -125,41 +88,45 @@ public class MailCore2Api {
      * @param path
      * @param callback
      */
-    public void fetchMessages(String path, UCallback<List<IMAPMessage>, MailException> callback) {
-        IMAPFetchMessagesOperation op = imapSession.fetchMessagesByNumberOperation(path, IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders | IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure, IndexSet.indexSetWithRange(new Range(1, Range.RangeMax)));
-        op.start(new OperationCallback() {
-            @Override
-            public void succeeded() {
-                Log.d(TAG, "succeeded() called");
-                callback.succeeded(op.messages());
+    fun fetchMessages(path: String?, callback: UCallback<List<IMAPMessage>, MailException>) {
+        val op = imapSession!!.fetchMessagesByNumberOperation(
+            path,
+            IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders or IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure,
+            IndexSet.indexSetWithRange(
+                Range(1, Range.RangeMax)
+            )
+        )
+        op.start(object : OperationCallback {
+            override fun succeeded() {
+                Log.d(TAG, "succeeded() called")
+                callback.succeeded(op.messages())
             }
 
-            @Override
-            public void failed(MailException e) {
-                Log.d(TAG, "failed() called with: e = [" + e + "]");
-                callback.onFailed(e);
+            override fun failed(e: MailException) {
+                Log.d(TAG, "failed() called with: e = [$e]")
+                callback.onFailed(e)
             }
-        });
+        })
     }
 
-
-    private Observable<String> getObservable(Operation operation) {
-        return Observable.create((ObservableOnSubscribe<String>) emitter -> {
-            operation.start(new OperationCallback() {
-                @Override
-                public void succeeded() {
-                    Log.d(TAG, "succeeded() called:" + operation.getClass().getName() + "," + Thread.currentThread().getName());
-                    emitter.onNext("");
-                    emitter.onComplete();
+    private fun getObservable(operation: Operation): Observable<String?> {
+        return Observable.create(ObservableOnSubscribe { emitter: ObservableEmitter<String?> ->
+            operation.start(object : OperationCallback {
+                override fun succeeded() {
+                    Log.d(
+                        TAG,
+                        "succeeded() called:" + operation.javaClass.name + "," + Thread.currentThread().name
+                    )
+                    emitter.onNext("")
+                    emitter.onComplete()
                 }
 
-                @Override
-                public void failed(MailException e) {
-                    Log.d(TAG, "failed() called with: e = [" + e + "]");
-                    emitter.onError(e);
+                override fun failed(e: MailException) {
+                    Log.d(TAG, "failed() called with: e = [$e]")
+                    emitter.onError(e)
                 }
-            });
-        });
+            })
+        })
     }
 
     /**
@@ -171,62 +138,69 @@ public class MailCore2Api {
      * @param path
      * @param uid
      */
-    public void deleteMessage(String path, long uid) {
-
-        IndexSet indexSet = new IndexSet();
-        indexSet.addIndex(uid);
-
-        Operation copyOperation = imapSession.copyMessagesOperation(path, indexSet, "Trash");
-        Operation storeOperation = imapSession.storeFlagsByUIDOperation(path, indexSet, IMAPStoreFlagsRequestKind.IMAPStoreFlagsRequestKindSet, MessageFlag.MessageFlagDeleted);
-        Operation expungeOperation = imapSession.expungeOperation(path);
-
+    fun deleteMessage(path: String?, uid: Long) {
+        val indexSet = IndexSet()
+        indexSet.addIndex(uid)
+        val copyOperation: Operation = imapSession!!.copyMessagesOperation(path, indexSet, "Trash")
+        val storeOperation: Operation = imapSession!!.storeFlagsByUIDOperation(
+            path,
+            indexSet,
+            IMAPStoreFlagsRequestKind.IMAPStoreFlagsRequestKindSet,
+            MessageFlag.MessageFlagDeleted
+        )
+        val expungeOperation: Operation = imapSession!!.expungeOperation(path)
         Observable.fromArray(copyOperation, storeOperation, expungeOperation)
-                .concatMap((Function<Operation, ObservableSource<?>>) this::getObservable)
-                .subscribe(new Observer<Object>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d(TAG, "onSubscribe() called with: d = [" + d + "]");
-                    }
+            .concatMap(Function<Operation, ObservableSource<*>> { operation: Operation ->
+                getObservable(
+                    operation
+                )
+            })
+            .subscribe(object : Observer<Any> {
+                override fun onSubscribe(d: Disposable) {
+                    Log.d(TAG, "onSubscribe() called with: d = [$d]")
+                }
 
-                    @Override
-                    public void onNext(Object o) {
-                        Log.d(TAG, "onNext() called with: o = [" + o + "]");
-                    }
+                override fun onNext(o: Any) {
+                    Log.d(TAG, "onNext() called with: o = [$o]")
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "onError() called with: e = [" + e + "]");
-                    }
+                override fun onError(e: Throwable) {
+                    Log.d(TAG, "onError() called with: e = [$e]")
+                }
 
-                    @Override
-                    public void onComplete() {
-                        Log.d(TAG, "onComplete() called");
-                    }
-                });
+                override fun onComplete() {
+                    Log.d(TAG, "onComplete() called")
+                }
+            })
     }
 
-    public void syncMessage(){
-        int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindFlags | IMAPMessagesRequestKind.IMAPMessagesRequestKindInternalDate | IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders|IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders;
-        IndexSet indexSet=new IndexSet();
-        indexSet.addRange(new Range(1,Integer.MAX_VALUE));
-        IMAPFetchMessagesOperation op = imapSession.syncMessagesByUIDOperation(Constants.INBOX, requestKind, indexSet, 0);
-        op.start(new OperationCallback() {
-            @Override
-            public void succeeded() {
-                List<IMAPMessage> messages = op.messages();
-                for(IMAPMessage message:messages){
-                    Log.d(TAG, "succeeded() uid:"+message.uid());
-                    Log.d(TAG, "succeeded() flags:"+message.flags());
-                    Log.d(TAG, "succeeded() sequenceNumber:"+message.sequenceNumber());
-                    Log.d(TAG, "succeeded() size:"+message.size());
+    fun syncMessage() {
+        val requestKind =
+            IMAPMessagesRequestKind.IMAPMessagesRequestKindFlags or IMAPMessagesRequestKind.IMAPMessagesRequestKindInternalDate or IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders or IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders
+        val indexSet = IndexSet()
+        indexSet.addRange(Range(1, Int.MAX_VALUE.toLong()))
+        val op = imapSession!!.syncMessagesByUIDOperation(Constants.INBOX, requestKind, indexSet, 0)
+        op.start(object : OperationCallback {
+            override fun succeeded() {
+                val messages = op.messages()
+                for (message in messages) {
+                    Log.d(TAG, "succeeded() uid:" + message.uid())
+                    Log.d(TAG, "succeeded() flags:" + message.flags())
+                    Log.d(TAG, "succeeded() sequenceNumber:" + message.sequenceNumber())
+                    Log.d(TAG, "succeeded() size:" + message.size())
                 }
             }
 
-            @Override
-            public void failed(MailException e) {
-                Log.d(TAG, "failed() called with: e = [" + e + "]");
+            override fun failed(e: MailException) {
+                Log.d(TAG, "failed() called with: e = [$e]")
             }
-        });
+        })
     }
 
+    companion object {
+        private const val TAG = "MailCore2Api"
+        val instance:MailCore2Api by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            MailCore2Api()
+        }
+    }
 }

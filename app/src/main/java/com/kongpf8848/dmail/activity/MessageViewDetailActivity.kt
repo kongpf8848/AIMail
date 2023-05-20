@@ -1,37 +1,29 @@
-package com.kongpf8848.dmail.activity;
+package com.kongpf8848.dmail.activity
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
+import android.content.Intent
+import android.os.Bundle
+import android.view.MenuItem
+import com.kongpf8848.dmail.R
+import com.kongpf8848.dmail.messagelist.MessageViewDetailFragment
 
-import com.kongpf8848.dmail.messagelist.MessageViewDetailFragment;
-import com.kongpf8848.dmail.R;
-
-
-public class MessageViewDetailActivity extends BaseActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messageview_detail);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+class MessageViewDetailActivity : BaseActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_messageview_detail)
         if (savedInstanceState == null) {
-
-
-            MessageViewDetailFragment fragment = new MessageViewDetailFragment();
-            getFragmentManager().beginTransaction()
-                    .add(R.id.messageview_detail_container, fragment)
-                    .commit();
+            val fragment = MessageViewDetailFragment()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.messageview_detail_container, fragment)
+                .commit()
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         if (id == android.R.id.home) {
-            navigateUpTo(new Intent(this, MessageViewListActivity.class));
-            return true;
+            navigateUpTo(Intent(this, MessageViewListActivity::class.java))
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 }

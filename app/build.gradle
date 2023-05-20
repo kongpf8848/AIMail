@@ -26,6 +26,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        exclude "META-INF/DEPENDENCIES"
+    }
+
 }
 
 repositories {
@@ -49,4 +53,5 @@ dependencies {
     implementation BuildDependencies.appAuth
     implementation BuildDependencies.kotlinStdlib
     implementation BuildDependencies.kotlinStdlibJdk7
+    implementation BuildDependencies.ewsApi
 }

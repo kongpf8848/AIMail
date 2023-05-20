@@ -1,18 +1,6 @@
-package com.kongpf8848.dmail.mailcore;
+package com.kongpf8848.dmail.mailcore
 
-import com.libmailcore.SMTPSession;
-import com.kongpf8848.dmail.bean.OAuthToken;
+import com.kongpf8848.dmail.bean.OAuthToken
+import com.libmailcore.SMTPSession
 
-public class SMTPSessionWithToken extends SMTPSession {
-
-    private OAuthToken token;
-
-    public SMTPSessionWithToken(final OAuthToken token) {
-       this.token=token;
-    }
-
-    public OAuthToken getToken() {
-       return token;
-    }
-
-}
+class SMTPSessionWithToken(val token: OAuthToken?) : SMTPSession()

@@ -1,17 +1,6 @@
-package com.kongpf8848.dmail.mailcore;
+package com.kongpf8848.dmail.mailcore
 
-import com.libmailcore.IMAPSession;
-import com.kongpf8848.dmail.bean.OAuthToken;
+import com.kongpf8848.dmail.bean.OAuthToken
+import com.libmailcore.IMAPSession
 
-public class IMAPSessionWithToken extends IMAPSession {
-    private OAuthToken token;
-
-    public IMAPSessionWithToken(final OAuthToken token) {
-        this.token=token;
-    }
-
-    public  OAuthToken getToken() {
-        return token;
-    }
-
-}
+class IMAPSessionWithToken(val token: OAuthToken?) : IMAPSession()

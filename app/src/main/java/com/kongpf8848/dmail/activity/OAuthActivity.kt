@@ -1,164 +1,153 @@
-package com.kongpf8848.dmail.activity;
+package com.kongpf8848.dmail.activity
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import com.kongpf8848.dmail.util.TokenUtils.getEmailFromIdToken
+import com.kongpf8848.dmail.activity.BaseActivity
+import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
+import com.kongpf8848.dmail.bean.OAuthToken
+import android.os.Bundle
+import android.content.Intent
+import android.app.Activity
+import android.net.Uri
+import android.text.TextUtils
+import android.util.Log
+import com.kongpf8848.dmail.activity.OAuthActivity
+import net.openid.appauth.AuthorizationService.TokenResponseCallback
+import com.kongpf8848.dmail.login.oauth.DMAccountType
+import com.kongpf8848.dmail.util.TokenUtils
+import com.kongpf8848.dmail.login.oauth.hotmail.HotmailModule
+import com.kongpf8848.dmail.login.oauth.AuthorizationHeader
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import com.kongpf8848.dmail.login.oauth.hotmail.HotmailProfile
+import com.kongpf8848.dmail.login.oauth.yahoo.YahooModule
+import com.kongpf8848.dmail.login.oauth.yahoo.YahooProfileResponse
+import net.openid.appauth.*
 
-import androidx.annotation.Nullable;
+abstract class OAuthActivity : BaseActivity() {
 
-import com.kongpf8848.dmail.bean.OAuthToken;
-import com.kongpf8848.dmail.login.oauth.AuthorizationHeader;
-import com.kongpf8848.dmail.login.oauth.DMAccountType;
-import com.kongpf8848.dmail.login.oauth.OAuthConfiguration;
-import com.kongpf8848.dmail.login.oauth.hotmail.HotmailModule;
-import com.kongpf8848.dmail.login.oauth.yahoo.YahooModule;
-import com.kongpf8848.dmail.util.TokenUtils;
-
-import net.openid.appauth.AuthorizationException;
-import net.openid.appauth.AuthorizationRequest;
-import net.openid.appauth.AuthorizationResponse;
-import net.openid.appauth.AuthorizationService;
-import net.openid.appauth.AuthorizationServiceConfiguration;
-import net.openid.appauth.ClientAuthentication;
-import net.openid.appauth.ClientSecretPost;
-import net.openid.appauth.NoClientAuthentication;
-import net.openid.appauth.ResponseTypeValues;
-import net.openid.appauth.TokenResponse;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public abstract class OAuthActivity extends BaseActivity {
-
-    public static final int RC_OAUTH = 4099;
-
-    private AuthorizationService authService;
-    private OAuthConfiguration config;
-    private String address;
-
-    public abstract void onOAuthTokenSuccess(String address, OAuthToken token);
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        authService = new AuthorizationService(this);
+    private lateinit var authService: AuthorizationService
+    private var config: OAuthConfiguration? = null
+    private var address: String? = null
+    abstract fun onOAuthTokenSuccess(address: String?, token: OAuthToken?)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        authService = AuthorizationService(this)
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != RESULT_OK) {
+            return
         }
-        if (RC_OAUTH == requestCode) {
-            AuthorizationResponse resp = AuthorizationResponse.fromIntent(data);
-            AuthorizationException ex = AuthorizationException.fromIntent(data);
-            if (resp != null) {
-                getAuthorizationCodeSuccess(resp);
-            } else if (ex != null) {
-                ex.printStackTrace();
-            }
+        if (requestCode== RC_OAUTH) {
+            val resp = AuthorizationResponse.fromIntent(data!!)
+            val ex = AuthorizationException.fromIntent(data)
+            resp?.let { getAuthorizationCodeSuccess(it) } ?: ex?.printStackTrace()
         }
     }
 
-    protected void doAuth(OAuthConfiguration config, String address) {
-        this.config = config;
-        this.address = address;
-
-        AuthorizationServiceConfiguration serviceConfig = new AuthorizationServiceConfiguration(
-                Uri.parse(config.getAuthorizationURL()),
-                Uri.parse(config.getTokenURL()));
-        AuthorizationRequest.Builder authRequestBuilder =
-                new AuthorizationRequest.Builder(
-                        serviceConfig,
-                        config.getClientId(),
-                        ResponseTypeValues.CODE,
-                        Uri.parse(config.getRedirectURL()));
+    protected fun doAuth(config: OAuthConfiguration, address: String?) {
+        this.config = config
+        this.address = address
+        val serviceConfig = AuthorizationServiceConfiguration(
+            Uri.parse(config.authorizationURL),
+            Uri.parse(config.tokenURL)
+        )
+        val authRequestBuilder = AuthorizationRequest.Builder(
+            serviceConfig,
+            config.clientId,
+            ResponseTypeValues.CODE,
+            Uri.parse(config.redirectURL)
+        )
         if (!TextUtils.isEmpty(this.address)) {
-            authRequestBuilder.setLoginHint(this.address);
+            authRequestBuilder.setLoginHint(this.address)
         }
-        AuthorizationRequest authRequest = authRequestBuilder
-                .setScope(TextUtils.join(",", config.getScopes())).build();
-        Intent authIntent = authService.getAuthorizationRequestIntent(authRequest);
-        startActivityForResult(authIntent, RC_OAUTH);
-
+        val authRequest = authRequestBuilder
+            .setScope(TextUtils.join(",", config.scopes)).build()
+        val authIntent = authService!!.getAuthorizationRequestIntent(authRequest)
+        startActivityForResult(authIntent, RC_OAUTH)
     }
 
-    private void getAuthorizationCodeSuccess(AuthorizationResponse r) {
-        ClientAuthentication authentication = null;
-        if (!TextUtils.isEmpty(config.getClientSecret())) {
-            authentication = new ClientSecretPost(config.getClientSecret());
+    private fun getAuthorizationCodeSuccess(r: AuthorizationResponse) {
+        var authentication: ClientAuthentication? = null
+        authentication = if (!TextUtils.isEmpty(config!!.clientSecret)) {
+            ClientSecretPost(config!!.clientSecret)
         } else {
-            authentication = NoClientAuthentication.INSTANCE;
+            NoClientAuthentication.INSTANCE
         }
-        authService.performTokenRequest(r.createTokenExchangeRequest(), authentication, (resp, ex) -> {
+        authService!!.performTokenRequest(
+            r.createTokenExchangeRequest(),
+            authentication!!
+        ) { resp: TokenResponse?, ex: AuthorizationException? ->
             if (resp != null) {
-                Log.d(TAG, "getAuthorizationCodeSuccess() called with: resp = [" + resp.jsonSerializeString() + "]");
-                if (config.getAccountType() == DMAccountType.TYPE_HOTMAIL) {
-                    getUserInfoForOutlook(resp);
-                } else if (config.getAccountType() == DMAccountType.TYPE_YAHOO) {
-                    this.address = TokenUtils.getEmailFromIdToken(resp.idToken);
-                    if (TextUtils.isEmpty(this.address)) {
-                        getUserInfoForYahoo(resp);
-                    }else {
-                        OAuthToken token = new OAuthToken();
-                        token.accountType = DMAccountType.TYPE_YAHOO;
-                        token.access_token = resp.accessToken;
-                        token.refresh_token = resp.refreshToken;
-                        token.expire_time = resp.accessTokenExpirationTime;
-                        onOAuthTokenSuccess(this.address, token);
+                Log.d(
+                    TAG,
+                    "getAuthorizationCodeSuccess() called with: resp = [" + resp.jsonSerializeString() + "]"
+                )
+                if (config!!.accountType == DMAccountType.TYPE_HOTMAIL) {
+                    getUserInfoForOutlook(resp)
+                } else if (config!!.accountType == DMAccountType.TYPE_YAHOO) {
+                    address = getEmailFromIdToken(resp.idToken!!)
+                    if (TextUtils.isEmpty(address)) {
+                        getUserInfoForYahoo(resp)
+                    } else {
+                        val token = OAuthToken()
+                        token.accountType = DMAccountType.TYPE_YAHOO
+                        token.access_token = resp.accessToken
+                        token.refresh_token = resp.refreshToken
+                        token.expire_time = resp.accessTokenExpirationTime
+                        onOAuthTokenSuccess(address, token)
                     }
-                } else if (config.getAccountType() == DMAccountType.TYPE_GOOGLE) {
-                    this.address = TokenUtils.getEmailFromIdToken(resp.idToken);
-                    OAuthToken token = new OAuthToken();
-                    token.accountType = DMAccountType.TYPE_GOOGLE;
-                    token.access_token = resp.accessToken;
-                    token.refresh_token = resp.refreshToken;
-                    token.expire_time = resp.accessTokenExpirationTime;
-                    onOAuthTokenSuccess(this.address, token);
+                } else if (config!!.accountType == DMAccountType.TYPE_GOOGLE) {
+                    address = getEmailFromIdToken(resp.idToken!!)
+                    val token = OAuthToken()
+                    token.accountType = DMAccountType.TYPE_GOOGLE
+                    token.access_token = resp.accessToken
+                    token.refresh_token = resp.refreshToken
+                    token.expire_time = resp.accessTokenExpirationTime
+                    onOAuthTokenSuccess(address, token)
                 }
             } else {
-                Log.e(TAG, "getAuthorizationCodeSuccess() called with: ex = [" + ex + "]");
+                Log.e(TAG, "getAuthorizationCodeSuccess() called with: ex = [$ex]")
             }
-        });
+        }
     }
 
-    private void getUserInfoForOutlook(TokenResponse resp) {
-        HotmailModule.provideHotmailApi().profile(new AuthorizationHeader(resp.accessToken))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((profile, throwable) -> {
-                    if (profile != null) {
-                        OAuthActivity.this.address = profile.getEmails().getAccount();
-                        OAuthToken token = new OAuthToken();
-                        token.accountType = DMAccountType.TYPE_HOTMAIL;
-                        token.access_token = resp.accessToken;
-                        token.refresh_token = resp.refreshToken;
-                        token.expire_time = resp.accessTokenExpirationTime;
-                        onOAuthTokenSuccess(OAuthActivity.this.address, token);
-                    }
-                });
-
+    private fun getUserInfoForOutlook(resp: TokenResponse) {
+        HotmailModule.provideHotmailApi().profile(AuthorizationHeader(resp.accessToken))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { profile: HotmailProfile?, throwable: Throwable? ->
+                if (profile != null) {
+                    address = profile.emails.account
+                    val token = OAuthToken()
+                    token.accountType = DMAccountType.TYPE_HOTMAIL
+                    token.access_token = resp.accessToken
+                    token.refresh_token = resp.refreshToken
+                    token.expire_time = resp.accessTokenExpirationTime
+                    onOAuthTokenSuccess(address, token)
+                }
+            }
     }
 
-    private void getUserInfoForYahoo(TokenResponse resp) {
-        YahooModule.provideYahooApi().profile(new AuthorizationHeader(resp.accessToken))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((profile, throwable) -> {
-                    if (profile != null) {
-                        this.address = profile.getEmail();
-                        OAuthToken token = new OAuthToken();
-                        token.accountType = DMAccountType.TYPE_YAHOO;
-                        token.access_token = resp.accessToken;
-                        token.refresh_token = resp.refreshToken;
-                        token.expire_time = resp.accessTokenExpirationTime;
-                        onOAuthTokenSuccess(this.address, token);
-                    }
-                });
+    private fun getUserInfoForYahoo(resp: TokenResponse) {
+        YahooModule.provideYahooApi().profile(AuthorizationHeader(resp.accessToken))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { profile: YahooProfileResponse?, throwable: Throwable? ->
+                if (profile != null) {
+                    address = profile.email
+                    val token = OAuthToken()
+                    token.accountType = DMAccountType.TYPE_YAHOO
+                    token.access_token = resp.accessToken
+                    token.refresh_token = resp.refreshToken
+                    token.expire_time = resp.accessTokenExpirationTime
+                    onOAuthTokenSuccess(address, token)
+                }
+            }
     }
 
+    companion object {
+        const val RC_OAUTH = 4099
+    }
 }

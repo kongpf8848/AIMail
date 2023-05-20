@@ -1,53 +1,47 @@
-package com.kongpf8848.dmail.activity;
+package com.kongpf8848.dmail.activity
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.content.Intent
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
+import com.kongpf8848.dmail.mailcore.MailCore2Api
+import com.kongpf8848.dmail.mailcore.SessionManager
+import com.kongpf8848.dmail.util.DomainUtils.getDomain
+import com.libmailcore.ConnectionType
+import kotlinx.android.synthetic.main.activity_login_imap.*
 
-import com.kongpf8848.dmail.util.DomainUtils;
-import com.kongpf8848.dmail.R;
-import com.kongpf8848.dmail.mailcore.MailCore2Api;
-import com.kongpf8848.dmail.mailcore.SessionManager;
-import com.libmailcore.ConnectionType;
+class IMAPLoginActivity : BaseActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class IMAPLoginActivity extends BaseActivity{
-
-    private EditText et_username;
-    private EditText et_password;
-    private TextView tv_login;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_imap);
-        et_username=findViewById(R.id.et_username);
-        et_password=findViewById(R.id.et_password);
-        tv_login=findViewById(R.id.tv_login);
-        tv_login.setOnClickListener(v -> {
-            onClickLogin();
-        });
+        tv_login.setOnClickListener { onClickLogin() }
     }
 
-    private void onClickLogin(){
-        String username=et_username.getText().toString().trim();
-        String password=et_password.getText().toString().trim();
-        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
-            return;
+    private fun onClickLogin() {
+        val username = et_username.text.toString().trim()
+        val password = et_password.text.toString().trim()
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            return
         }
-
-        String domain= DomainUtils.getDomain(username);
-        if(TextUtils.isEmpty(domain)){
-            return;
+        val domain = getDomain(username)
+        if (TextUtils.isEmpty(domain)) {
+            return
         }
-        String host="imap."+domain;
-        int connectType= ConnectionType.ConnectionTypeTLS;
-        int port=993;
-
-        MailCore2Api.getInstance().setImapSession(SessionManager.buildImapSession(username,password,host,port,connectType,null));
-
-        Intent intent=new Intent(this,MessageViewListActivity.class);
-        startActivity(intent);
-        finish();
+        val host = "imap.$domain"
+        val connectType = ConnectionType.ConnectionTypeTLS
+        val port = 993
+        MailCore2Api.instance.setImapSession(
+            SessionManager.buildImapSession(
+                username,
+                password,
+                host,
+                port,
+                connectType,
+                null
+            )
+        )
+        val intent = Intent(this, MessageViewListActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

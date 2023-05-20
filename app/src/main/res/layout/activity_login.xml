@@ -47,6 +47,14 @@
             android:text="@string/imap"
             />
 
+        <Button
+            android:id="@+id/btn_exchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/exchange"
+            />
+
     </LinearLayout>
 
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <WebView
-        android:id="@+id/messageview_detail"
+        android:id="@+id/webView"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,89 +1,81 @@
-package com.kongpf8848.dmail.login;
+package com.kongpf8848.dmail.login
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
+import android.content.Intent
+import android.os.Bundle
+import com.kongpf8848.dmail.R
+import com.kongpf8848.dmail.activity.IMAPLoginActivity
+import com.kongpf8848.dmail.activity.MessageViewListActivity
+import com.kongpf8848.dmail.activity.OAuthActivity
+import com.kongpf8848.dmail.bean.MailConfig
+import com.kongpf8848.dmail.bean.OAuthToken
+import com.kongpf8848.dmail.login.oauth.OAuthModule
+import com.kongpf8848.dmail.mailcore.MailCore2Api
+import com.kongpf8848.dmail.mailcore.SessionManager.buildImapSession
+import com.libmailcore.ConnectionType
+import kotlinx.android.synthetic.main.activity_login.*
 
-import com.kongpf8848.dmail.R;
-import com.kongpf8848.dmail.activity.IMAPLoginActivity;
-import com.kongpf8848.dmail.activity.MessageViewListActivity;
-import com.kongpf8848.dmail.activity.OAuthActivity;
-import com.kongpf8848.dmail.bean.MailConfig;
-import com.kongpf8848.dmail.login.oauth.OAuthModule;
-import com.libmailcore.ConnectionType;
-import com.kongpf8848.dmail.bean.OAuthToken;
-import com.kongpf8848.dmail.mailcore.MailCore2Api;
-import com.kongpf8848.dmail.mailcore.SessionManager;
-
-public class LoginActivity extends OAuthActivity {
-
-    private Button btn_gmail;
-    private Button btn_outlook;
-    private Button btn_yahoo;
-    private Button btn_imap;
-    private MailConfig imapConfig;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        btn_gmail=findViewById(R.id.btn_gmail);
-        btn_outlook=findViewById(R.id.btn_outlook);
-        btn_yahoo=findViewById(R.id.btn_yahoo);
-        btn_imap=findViewById(R.id.btn_imap);
-        btn_gmail.setOnClickListener(v -> {
-            onClickGmail();
-        });
-        btn_outlook.setOnClickListener(v -> {
-            onClickOutlook();
-        });
-        btn_yahoo.setOnClickListener(v -> {
-            onClickYahoo();
-        });
-        btn_imap.setOnClickListener(v -> {
-            onClickImap();
-        });
-
+class LoginActivity : OAuthActivity() {
+    private var imapConfig: MailConfig? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        btn_gmail.setOnClickListener { v -> onClickGmail() }
+        btn_outlook.setOnClickListener { v -> onClickOutlook() }
+        btn_yahoo.setOnClickListener { v -> onClickYahoo() }
+        btn_imap.setOnClickListener { v -> onClickImap() }
+        btn_exchange.setOnClickListener { v -> onClickExchange() }
     }
 
-    @Override
-    public void onOAuthTokenSuccess(String address, OAuthToken token) {
-        MailCore2Api.getInstance().setImapSession(SessionManager.buildImapSession(address,null,imapConfig.host,imapConfig.port,imapConfig.connection_type,token));
-
-        jumpToMessageList();
+    override fun onOAuthTokenSuccess(address: String?, token: OAuthToken?) {
+        MailCore2Api.instance.setImapSession(
+            buildImapSession(
+                address,
+                null,
+                imapConfig!!.host,
+                imapConfig!!.port,
+                imapConfig!!.connection_type,
+                token
+            )
+        )
+        jumpToMessageList()
     }
 
-    private void onClickGmail(){
-        imapConfig=new MailConfig();
-        imapConfig.host="imap.gmail.com";
-        imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
-        imapConfig.port=993;
-        doAuth(OAuthModule.provideGoogleConfiguration(),null);
+    private fun onClickGmail() {
+        imapConfig = MailConfig()
+        imapConfig!!.host = "imap.gmail.com"
+        imapConfig!!.connection_type = ConnectionType.ConnectionTypeTLS
+        imapConfig!!.port = 993
+        doAuth(OAuthModule.provideGoogleConfiguration(), null)
     }
 
-    private void onClickOutlook(){
-        imapConfig=new MailConfig();
-        imapConfig.host="imap-mail.outlook.com";
-        imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
-        imapConfig.port=993;
-        doAuth(OAuthModule.provideHotmailConfiguration(),null);
+    private fun onClickOutlook() {
+        imapConfig = MailConfig()
+        imapConfig!!.host = "imap-mail.outlook.com"
+        imapConfig!!.connection_type = ConnectionType.ConnectionTypeTLS
+        imapConfig!!.port = 993
+        doAuth(OAuthModule.provideHotmailConfiguration(), null)
     }
 
-    private void onClickYahoo(){
-        imapConfig=new MailConfig();
-        imapConfig.host="imap.mail.yahoo.com";
-        imapConfig.connection_type= ConnectionType.ConnectionTypeTLS;
-        imapConfig.port=993;
-        doAuth(OAuthModule.provideYahooConfiguration(),null);
+    private fun onClickYahoo() {
+        imapConfig = MailConfig()
+        imapConfig!!.host = "imap.mail.yahoo.com"
+        imapConfig!!.connection_type = ConnectionType.ConnectionTypeTLS
+        imapConfig!!.port = 993
+        doAuth(OAuthModule.provideYahooConfiguration(), null)
     }
 
-    private void onClickImap() {
-        Intent intent=new Intent(this, IMAPLoginActivity.class);
-        startActivity(intent);
+    private fun onClickImap() {
+        val intent = Intent(this, IMAPLoginActivity::class.java)
+        startActivity(intent)
     }
 
-    private void jumpToMessageList(){
-        Intent intent=new Intent(this, MessageViewListActivity.class);
-        startActivity(intent);
+    private fun onClickExchange() {
+        val intent = Intent(this, IMAPLoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun jumpToMessageList() {
+        val intent = Intent(this, MessageViewListActivity::class.java)
+        startActivity(intent)
     }
 }

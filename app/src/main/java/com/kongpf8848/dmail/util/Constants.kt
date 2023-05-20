@@ -1,5 +1,5 @@
-package com.kongpf8848.dmail.util;
+package com.kongpf8848.dmail.util
 
-public class Constants {
-    public static final String INBOX = "INBOX";
+object Constants {
+    const val INBOX = "INBOX"
 }

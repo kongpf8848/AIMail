@@ -1,15 +1,5 @@
-package com.kongpf8848.dmail.bean;
+package com.kongpf8848.dmail.bean
 
-import java.io.Serializable;
+import java.io.Serializable
 
-public class MailInfo implements Serializable {
-    public String html;
-    public String html_body;
-    public byte[]origin_data;
-
-    public MailInfo(String html, String html_body, byte[] origin_data) {
-        this.html = html;
-        this.html_body = html_body;
-        this.origin_data = origin_data;
-    }
-}
+class MailInfo(var html: String, var html_body: String, var origin_data: ByteArray) : Serializable

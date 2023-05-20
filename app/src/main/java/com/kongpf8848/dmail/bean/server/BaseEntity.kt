@@ -1,6 +1,5 @@
-package com.kongpf8848.dmail.bean.server;
+package com.kongpf8848.dmail.bean.server
 
-import java.io.Serializable;
+import java.io.Serializable
 
-public class BaseEntity implements Serializable {
-}
+class BaseEntity : Serializable

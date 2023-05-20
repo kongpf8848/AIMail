@@ -1,90 +1,89 @@
-package com.kongpf8848.dmail.util;
+package com.kongpf8848.dmail.util
 
-import android.content.Context;
-import android.os.Build;
-import android.os.LocaleList;
+import android.content.Context
+import android.os.Build
+import android.os.LocaleList
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.lang.Exception
+import java.util.*
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
-
-public class Utils {
-
-
-    public static File extractAsset(Context context, int assetResId, String folderName, String fileName) {
-        File cacheFolder = new File(context.getCacheDir(), folderName);
+object Utils {
+    fun extractAsset(
+        context: Context,
+        assetResId: Int,
+        folderName: String?,
+        fileName: String?
+    ): File {
+        val cacheFolder = File(context.cacheDir, folderName)
         if (!cacheFolder.exists()) {
-            cacheFolder.mkdirs();
+            cacheFolder.mkdirs()
         }
-        File outputFile = new File(cacheFolder, fileName);
+        val outputFile = File(cacheFolder, fileName)
         if (!outputFile.exists() || outputFile.length() <= 0) {
-            byte[] buffer = new byte[4096];
-            int byteCount = 0;
+            val buffer = ByteArray(4096)
+            var byteCount = 0
             try {
-                InputStream is = context.getResources().openRawResource(assetResId);
-                FileOutputStream fos = new FileOutputStream(outputFile);
-                while ((byteCount = is.read(buffer)) != -1) {
-                    fos.write(buffer, 0, byteCount);
+                val `is` = context.resources.openRawResource(assetResId)
+                val fos = FileOutputStream(outputFile)
+                while (`is`.read(buffer).also { byteCount = it } != -1) {
+                    fos.write(buffer, 0, byteCount)
                 }
-                fos.flush();
-                is.close();
-                fos.close();
-            } catch (IOException e) {
-                outputFile.delete();
-                e.printStackTrace();
+                fos.flush()
+                `is`.close()
+                fos.close()
+            } catch (e: IOException) {
+                outputFile.delete()
+                e.printStackTrace()
             }
         }
-        return outputFile;
+        return outputFile
     }
 
-    public static String getDefaultLocale() {
-        Locale locale = getLocale();
-        String localeDef = locale.getLanguage() + "_" + locale.getCountry();
-        return localeDef;
-    }
-
-    public static Locale getLocale() {
-        Locale locale;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locale = LocaleList.getDefault().get(0);
-        } else {
-            locale = Locale.getDefault();
+    val defaultLocale: String
+        get() {
+            val locale = locale
+            return locale.language + "_" + locale.country
         }
-        return locale;
-    }
+    val locale: Locale
+        get() {
+            val locale: Locale
+            locale =
+                LocaleList.getDefault()[0]
+            return locale
+        }
 
-
-    public static void writeFile(String path,byte[] bytes) {
-        File file = new File(path);
-        FileOutputStream outputStream = null;
-        BufferedOutputStream bufferedOutputStream = null;
+    @JvmStatic
+    fun writeFile(path: String?, bytes: ByteArray?) {
+        val file = File(path)
+        var outputStream: FileOutputStream? = null
+        var bufferedOutputStream: BufferedOutputStream? = null
         try {
             if (file.exists()) {
-                file.delete();
+                file.delete()
             }
-            file.createNewFile();
-            outputStream = new FileOutputStream(file);
-            bufferedOutputStream = new BufferedOutputStream(outputStream);
-            bufferedOutputStream.write(bytes);
-            bufferedOutputStream.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
+            file.createNewFile()
+            outputStream = FileOutputStream(file)
+            bufferedOutputStream = BufferedOutputStream(outputStream)
+            bufferedOutputStream.write(bytes)
+            bufferedOutputStream.flush()
+        } catch (e: Exception) {
+            e.printStackTrace()
         } finally {
             if (outputStream != null) {
                 try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    outputStream.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
                 }
             }
             if (bufferedOutputStream != null) {
                 try {
-                    bufferedOutputStream.close();
-                } catch (Exception e2) {
-                    e2.printStackTrace();
+                    bufferedOutputStream.close()
+                } catch (e2: Exception) {
+                    e2.printStackTrace()
                 }
             }
         }

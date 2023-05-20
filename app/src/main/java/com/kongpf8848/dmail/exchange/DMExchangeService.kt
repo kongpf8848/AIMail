@@ -21,7 +21,8 @@ class DMExchangeService(requestedServerVersion: ExchangeVersion) : ExchangeServi
             }
             try {
                 service.url = URI("https://${session.url}/EWS/Exchange.asmx")
-            } catch (err: URISyntaxException) {
+            } catch (e: URISyntaxException) {
+                e.printStackTrace()
             }
             if (traced) {
                 service.isTraceEnabled = traced

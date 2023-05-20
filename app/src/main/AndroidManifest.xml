@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".activity.IMAPLoginActivity"
+            android:name=".login.MailAccountAuthActivity"
             android:screenOrientation="portrait"
             />
 

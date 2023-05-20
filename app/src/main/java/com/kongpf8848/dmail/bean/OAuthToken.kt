@@ -1,6 +1,6 @@
 package com.kongpf8848.dmail.bean
 
-import com.kongpf8848.dmail.login.oauth.DMAccountType
+import com.kongpf8848.dmail.login.DMAccountType
 import java.io.Serializable
 
 class OAuthToken : Serializable {

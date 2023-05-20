@@ -2,12 +2,9 @@ package com.kongpf8848.dmail.mailcore
 
 import com.kongpf8848.dmail.bean.OAuthToken
 import com.libmailcore.IMAPSession
-import com.kongpf8848.dmail.mailcore.IMAPSessionWithToken
-import com.kongpf8848.dmail.login.oauth.DMAccountType
+import com.kongpf8848.dmail.login.DMAccountType
 import com.libmailcore.AuthType
-import com.libmailcore.IMAPIdentity
 import com.libmailcore.SMTPSession
-import com.kongpf8848.dmail.mailcore.SMTPSessionWithToken
 
 object SessionManager {
     @JvmStatic

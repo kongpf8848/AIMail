@@ -1,11 +1,19 @@
 package com.kongpf8848.dmail.util
 
 object DomainUtils {
-    @JvmStatic
-    fun getDomain(username: String): String {
-        val index = username.indexOf("@")
+
+    fun getUsername(address: String): String {
+        val index = address.indexOf("@")
         return if (index > 0) {
-            username.substring(index + 1)
+            address.substring(0,index)
         } else ""
     }
+
+    fun getDomain(address: String): String {
+        val index = address.indexOf("@")
+        return if (index > 0) {
+            address.substring(index + 1)
+        } else ""
+    }
+
 }

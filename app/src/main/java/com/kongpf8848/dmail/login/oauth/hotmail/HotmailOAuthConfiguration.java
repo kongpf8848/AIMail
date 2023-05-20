@@ -1,6 +1,6 @@
 package com.kongpf8848.dmail.login.oauth.hotmail;
 
-import com.kongpf8848.dmail.login.oauth.DMAccountType;
+import com.kongpf8848.dmail.login.DMAccountType;
 import com.kongpf8848.dmail.login.oauth.OAuthConfiguration;
 
 import java.util.Arrays;

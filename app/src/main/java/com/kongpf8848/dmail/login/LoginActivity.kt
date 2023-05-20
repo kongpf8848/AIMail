@@ -3,9 +3,7 @@ package com.kongpf8848.dmail.login
 import android.content.Intent
 import android.os.Bundle
 import com.kongpf8848.dmail.R
-import com.kongpf8848.dmail.activity.IMAPLoginActivity
 import com.kongpf8848.dmail.activity.MessageViewListActivity
-import com.kongpf8848.dmail.activity.OAuthActivity
 import com.kongpf8848.dmail.bean.MailConfig
 import com.kongpf8848.dmail.bean.OAuthToken
 import com.kongpf8848.dmail.login.oauth.OAuthModule
@@ -19,11 +17,11 @@ class LoginActivity : OAuthActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        btn_gmail.setOnClickListener { v -> onClickGmail() }
-        btn_outlook.setOnClickListener { v -> onClickOutlook() }
-        btn_yahoo.setOnClickListener { v -> onClickYahoo() }
-        btn_imap.setOnClickListener { v -> onClickImap() }
-        btn_exchange.setOnClickListener { v -> onClickExchange() }
+        btn_gmail.setOnClickListener { onClickGmail() }
+        btn_outlook.setOnClickListener { onClickOutlook() }
+        btn_yahoo.setOnClickListener { onClickYahoo() }
+        btn_imap.setOnClickListener { onClickImap() }
+        btn_exchange.setOnClickListener { onClickExchange() }
     }
 
     override fun onOAuthTokenSuccess(address: String?, token: OAuthToken?) {
@@ -65,12 +63,16 @@ class LoginActivity : OAuthActivity() {
     }
 
     private fun onClickImap() {
-        val intent = Intent(this, IMAPLoginActivity::class.java)
+        val intent = Intent(this, MailAccountAuthActivity::class.java).apply {
+            putExtra("accountType",DMAccountType.TYPE_IMAP.name)
+        }
         startActivity(intent)
     }
 
     private fun onClickExchange() {
-        val intent = Intent(this, IMAPLoginActivity::class.java)
+        val intent = Intent(this, MailAccountAuthActivity::class.java).apply {
+            putExtra("accountType",DMAccountType.TYPE_EXCHAGE.name)
+        }
         startActivity(intent)
     }
 

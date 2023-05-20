@@ -1,0 +1,26 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'org.apache.httpcomponents:httpclient:4.4.1'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.1'
+    implementation 'commons-io:commons-io:2.4'
+    implementation 'commons-logging:commons-logging:1.2'
+    implementation 'org.apache.commons:commons-lang3:3.4'
+    implementation 'commons-codec:commons-codec:1.10'
+    implementation 'joda-time:joda-time:2.8'
+    implementation 'javax.xml.ws:jaxws-api:2.3.1'
+
+}
+version ="2.0"
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

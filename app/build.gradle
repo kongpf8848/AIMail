@@ -21,6 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -42,6 +47,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation(name: 'mailcore2-android-4', ext: 'aar')
     implementation project(':lib_res')
+    api project(':ews-java-api')
     implementation AndroidX.appCompat
     implementation AndroidX.material
     implementation BuildDependencies.rxjava2
@@ -53,5 +59,4 @@ dependencies {
     implementation BuildDependencies.appAuth
     implementation BuildDependencies.kotlinStdlib
     implementation BuildDependencies.kotlinStdlibJdk7
-    implementation BuildDependencies.ewsApi
 }

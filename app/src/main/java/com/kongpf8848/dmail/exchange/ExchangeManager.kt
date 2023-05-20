@@ -7,7 +7,7 @@ object ExchangeManager {
 
     fun addExchangeSession(username: String, password: String, domain: String, url: String) {
         val session = ExchangeSession(username, password, domain, url)
-        exchangeSessionMap["$username@$password"] = session
+        exchangeSessionMap["$username@$domain"] = session
     }
 
     fun getSession(address: String): ExchangeSession? {

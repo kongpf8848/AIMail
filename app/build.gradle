@@ -47,7 +47,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation(name: 'mailcore2-android-4', ext: 'aar')
     implementation project(':lib_res')
-    api project(':ews-java-api')
+    api project(':lib_ews')
     implementation AndroidX.appCompat
     implementation AndroidX.material
     implementation BuildDependencies.rxjava2
@@ -59,4 +59,5 @@ dependencies {
     implementation BuildDependencies.appAuth
     implementation BuildDependencies.kotlinStdlib
     implementation BuildDependencies.kotlinStdlibJdk7
+
 }

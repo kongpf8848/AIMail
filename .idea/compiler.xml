@@ -6,7 +6,7 @@
       <module name="DMail.buildSrc" target="11" />
       <module name="DMail.buildSrc.main" target="11" />
       <module name="DMail.buildSrc.test" target="11" />
-      <module name="DMail.lib_ews" target="11" />
+      <module name="DMail.lib_mailcore" target="11" />
       <module name="DMail.lib_res" target="11" />
     </bytecodeTargetLevel>
   </component>

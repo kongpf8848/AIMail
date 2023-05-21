@@ -6,6 +6,10 @@ import com.kongpf8848.dmail.R
 import com.kongpf8848.dmail.mailcore.MailCore2Api
 import com.kongpf8848.dmail.messagelist.MessageViewListFragment
 import com.libmailcore.IMAPMessage
+import okhttp3.OkHttpClient
+import java.net.HttpURLConnection
+import java.net.URL
+import java.net.URLConnection
 
 class MessageViewListActivity : BaseActivity(), MessageViewListFragment.Callbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,5 +21,10 @@ class MessageViewListActivity : BaseActivity(), MessageViewListFragment.Callback
         MailCore2Api.instance.currentMessage = msg
         val detailIntent = Intent(this, MessageViewDetailActivity::class.java)
         startActivity(detailIntent)
+
+        var cc=OkHttpClient();
+        val request=OkHttpClient
+
+
     }
 }

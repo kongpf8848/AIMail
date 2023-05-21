@@ -10,9 +10,13 @@ object AccountApi {
 
     fun checkAccount(session: ExchangeSession, successCallBack:(String)->Unit, failCallBack:(Exception)->Unit) {
         try {
-            val service = DMExchangeService.getInstance(session)
-            val folder = Folder.bind(service, WellKnownFolderName.Inbox, PropertySet.IdOnly)
-            successCallBack.invoke(folder.id.uniqueId)
+            Thread {
+                val service = DMExchangeService.getInstance(session)
+                val folder = Folder.bind(service, WellKnownFolderName.Inbox, PropertySet.IdOnly)
+                successCallBack.invoke(folder.id.uniqueId)
+
+            }.start()
+
         } catch (e: Exception) {
             failCallBack.invoke(e)
         }

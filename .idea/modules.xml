@@ -10,13 +10,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DMail.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/DMail.buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DMail.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/DMail.buildSrc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DMail.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/DMail.buildSrc.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ews-java-api/DMail.ews-java-api.iml" filepath="$PROJECT_DIR$/.idea/modules/ews-java-api/DMail.ews-java-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ews-java-api/DMail.ews-java-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ews-java-api/DMail.ews-java-api.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ews-java-api/DMail.ews-java-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ews-java-api/DMail.ews-java-api.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.test.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_res/DMail.lib_res.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_res/DMail.lib_res.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_res/DMail.lib_res.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_res/DMail.lib_res.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_res/DMail.lib_res.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_res/DMail.lib_res.main.iml" />

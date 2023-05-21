@@ -4,9 +4,13 @@ plugins {
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
     implementation 'org.apache.httpcomponents:httpclient:4.4.1'
@@ -17,9 +21,12 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.10'
     implementation 'joda-time:joda-time:2.8'
     implementation 'javax.xml.ws:jaxws-api:2.3.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
 }
+
 version ="2.0"
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8

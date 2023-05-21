@@ -15,14 +15,13 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
-                <arg>$MODULE_DIR$/../../../ews-java-api/build/.transforms/de64b932832ca193a9342b283058d5a6/transformed/jetified-ews-java-api-2.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/a15016febfd894e3f5b50f3d15f0e6bb/transformed/jetified-kotlin-android-extensions-runtime-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/388bba75dcebc0721f268430ce8afadd/transformed/jetified-converter-gson-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d96f012c6212ea7c2432ac2acf98a079/transformed/jetified-adapter-rxjava2-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/66a8a6ba777a3513273b9ead190b2a3b/transformed/jetified-retrofit-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9de6c54aeecc40335279f1e0a197ae06/transformed/jetified-okhttp-4.9.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/eb49c376faeea0fa3018cc6b0e8e470e/transformed/jetified-kotlin-stdlib-jdk7-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c720883508797baa15cc363766db1a47/transformed/jetified-okio-jvm-2.8.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/a15016febfd894e3f5b50f3d15f0e6bb/transformed/jetified-kotlin-android-extensions-runtime-1.4.10.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/eb49c376faeea0fa3018cc6b0e8e470e/transformed/jetified-kotlin-stdlib-jdk7-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/975973e91a019f4d78b46d8059935efe/transformed/jetified-kotlin-stdlib-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/847ac6d87c8d32a1b3bafab722b6a47d/transformed/jetified-kotlin-stdlib-common-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9bedc73c6924a54e28fed5b0ccc6b516/transformed/jetified-annotations-13.0.jar</arg>
@@ -140,7 +139,7 @@
     <content url="file://$MODULE_DIR$/../../../app/src/testDebug" />
     <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="DMail.ews-java-api.main" scope="TEST" />
+    <orderEntry type="module" module-name="DMail.lib_ews.main" scope="TEST" />
     <orderEntry type="module" module-name="DMail.app.main" scope="TEST" />
     <orderEntry type="module" module-name="DMail.lib_res.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.4.10" level="project" />

@@ -24,6 +24,7 @@ class MessageViewDetailActivity : BaseActivity() {
             navigateUpTo(Intent(this, MessageViewListActivity::class.java))
             return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

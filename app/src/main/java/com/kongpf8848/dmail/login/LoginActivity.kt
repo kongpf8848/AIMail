@@ -17,11 +17,11 @@ class LoginActivity : OAuthActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        btn_gmail.setOnClickListener { onClickGmail() }
-        btn_outlook.setOnClickListener { onClickOutlook() }
-        btn_yahoo.setOnClickListener { onClickYahoo() }
-        btn_imap.setOnClickListener { onClickImap() }
-        btn_exchange.setOnClickListener { onClickExchange() }
+        ll_gmail.setOnClickListener { onClickGmail() }
+        ll_outlook.setOnClickListener { onClickOutlook() }
+        ll_yahoo.setOnClickListener { onClickYahoo() }
+        ll_other.setOnClickListener { onClickOther() }
+        ll_exchange.setOnClickListener { onClickExchange() }
     }
 
     override fun onOAuthTokenSuccess(address: String?, token: OAuthToken?) {
@@ -62,7 +62,7 @@ class LoginActivity : OAuthActivity() {
         doAuth(OAuthModule.provideYahooConfiguration(), null)
     }
 
-    private fun onClickImap() {
+    private fun onClickOther() {
         val intent = Intent(this, MailAccountAuthActivity::class.java).apply {
             putExtra("accountType",DMAccountType.TYPE_IMAP.name)
         }

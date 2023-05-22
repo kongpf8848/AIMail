@@ -15,6 +15,7 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
+                <arg>$MODULE_DIR$/../../../lib_ews/build/.transforms/934a25fdd0ce2fd4d636053968777c94/transformed/jetified-lib_ews-2.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/388bba75dcebc0721f268430ce8afadd/transformed/jetified-converter-gson-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d96f012c6212ea7c2432ac2acf98a079/transformed/jetified-adapter-rxjava2-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/66a8a6ba777a3513273b9ead190b2a3b/transformed/jetified-retrofit-2.9.0.jar</arg>

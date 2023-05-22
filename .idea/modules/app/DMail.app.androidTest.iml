@@ -30,6 +30,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../lib_ews/build/.transforms/934a25fdd0ce2fd4d636053968777c94/transformed/jetified-lib_ews-2.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a15016febfd894e3f5b50f3d15f0e6bb/transformed/jetified-kotlin-android-extensions-runtime-1.4.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5af91d4825f9a15c15f8a39921e20e43/transformed/jetified-mailcore2-android-4-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../lib_res/build/intermediates/compile_library_classes_jar/debug/classes.jar</arg>

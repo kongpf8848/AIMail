@@ -92,6 +92,7 @@ object Versions {
     const val AROUTER_COMPILER_VERSION = "1.2.1"
     const val BILLING_VERSION = "5.1.0"
     const val LEAK_CANARY_VERSION="2.10"
+    const val DAGGER_VERSION="2.17"
 }
 
 object BuildDependencies {
@@ -153,6 +154,8 @@ object BuildDependencies {
     const val aRouterCompiler="com.alibaba:arouter-compiler:${Versions.AROUTER_COMPILER_VERSION}"
     const val billing="com.android.billingclient:billing:${Versions.BILLING_VERSION}"
     const val leakCanary="com.squareup.leakcanary:leakcanary-android:${Versions.LEAK_CANARY_VERSION}"
+    const val dagger="com.google.dagger:dagger:${Versions.DAGGER_VERSION}"
+    const val daggerCompiler="com.google.dagger:dagger-compiler:${Versions.DAGGER_VERSION}"
 
 }
 

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -60,4 +61,6 @@ dependencies {
     implementation BuildDependencies.kotlinStdlib
     implementation BuildDependencies.kotlinStdlibJdk7
 
+    implementation BuildDependencies.dagger
+    kapt BuildDependencies.daggerCompiler
 }

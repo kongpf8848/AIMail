@@ -11,6 +11,7 @@ import com.kongpf8848.dmail.login.oauth.DaggerOAuthComponent;
 import com.kongpf8848.dmail.login.oauth.OAuthConfiguration;
 import com.kongpf8848.dmail.login.oauth.qualifiers.Google;
 import com.kongpf8848.dmail.login.oauth.qualifiers.Hotmail;
+import com.kongpf8848.dmail.login.oauth.qualifiers.Office365;
 import com.kongpf8848.dmail.login.oauth.qualifiers.Yahoo;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;
 import com.kongpf8848.dmail.mailcore.SessionManager;
@@ -31,6 +32,10 @@ public class LoginActivity extends OAuthActivity {
     OAuthConfiguration hotmailConfiguration;
 
     @Inject
+    @Office365
+    OAuthConfiguration office365Configuration;
+
+    @Inject
     @Yahoo
     OAuthConfiguration yahooConfiguration;
 
@@ -42,6 +47,7 @@ public class LoginActivity extends OAuthActivity {
 
         findViewById(R.id.ll_gmail).setOnClickListener(v->onClickGmail());
         findViewById(R.id.ll_outlook).setOnClickListener(v->onClickOutlook());
+        findViewById(R.id.ll_office365).setOnClickListener(v->onClickOffice365());
         findViewById(R.id.ll_yahoo).setOnClickListener(v->onClickYahoo());
         findViewById(R.id.ll_exchange).setOnClickListener(v->onClickExchange());
         findViewById(R.id.ll_other).setOnClickListener(v->onClickOther());
@@ -77,6 +83,14 @@ public class LoginActivity extends OAuthActivity {
         imapConfig.connection_type = ConnectionType.ConnectionTypeTLS;
         imapConfig.port = 993;
         doAuth(hotmailConfiguration, null);
+    }
+
+    private void onClickOffice365() {
+        imapConfig = new MailConfig();
+        imapConfig.host = "outlook.office365.com";
+        imapConfig.connection_type = ConnectionType.ConnectionTypeTLS;
+        imapConfig.port = 993;
+        doAuth(office365Configuration, null);
     }
 
     private void onClickYahoo() {

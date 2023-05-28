@@ -93,10 +93,10 @@ abstract class OAuthActivity : BaseActivity() {
                         token.expire_time = resp.accessTokenExpirationTime
                         onOAuthTokenSuccess(address, token)
                     }
-                } else if (config!!.accountType == DMAccountType.TYPE_GOOGLE) {
+                } else if (config!!.accountType == DMAccountType.TYPE_GOOGLE || config!!.accountType == DMAccountType.TYPE_OFFICE365) {
                     address = getEmailFromIdToken(resp.idToken!!)
                     val token = OAuthToken()
-                    token.accountType = DMAccountType.TYPE_GOOGLE
+                    token.accountType = config!!.accountType
                     token.access_token = resp.accessToken
                     token.refresh_token = resp.refreshToken
                     token.expire_time = resp.accessTokenExpirationTime

@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets
 object TokenUtils {
     fun getEmailFromIdToken(idToken: String): String {
         try {
-            val split = idToken.split("\\.").toTypedArray()
+            val split = idToken.split(".")
             val jwtBody = split[1]
             val decodedBodyBytes = Base64.decode(jwtBody, Base64.URL_SAFE)
             val body = String(decodedBodyBytes, StandardCharsets.UTF_8)

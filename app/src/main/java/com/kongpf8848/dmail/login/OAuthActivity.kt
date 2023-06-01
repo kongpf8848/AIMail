@@ -1,28 +1,34 @@
 package com.kongpf8848.dmail.login
 
-import com.kongpf8848.dmail.util.TokenUtils.getEmailFromIdToken
-import com.kongpf8848.dmail.activity.BaseActivity
-import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
-import com.kongpf8848.dmail.bean.OAuthToken
-import android.os.Bundle
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import com.kongpf8848.dmail.login.oauth.hotmail.HotmailModule
+import com.kongpf8848.dmail.activity.BaseActivity
+import com.kongpf8848.dmail.bean.OAuthToken
 import com.kongpf8848.dmail.login.oauth.AuthorizationHeader
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
+import com.kongpf8848.dmail.login.oauth.hotmail.HotmailApi
+import com.kongpf8848.dmail.login.oauth.hotmail.HotmailModule
 import com.kongpf8848.dmail.login.oauth.hotmail.HotmailProfile
 import com.kongpf8848.dmail.login.oauth.yahoo.YahooModule
 import com.kongpf8848.dmail.login.oauth.yahoo.YahooProfileResponse
+import com.kongpf8848.dmail.util.TokenUtils.getEmailFromIdToken
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import net.openid.appauth.*
+import javax.inject.Inject
 
 abstract class OAuthActivity : BaseActivity() {
 
     private lateinit var authService: AuthorizationService
     private var config: OAuthConfiguration? = null
     private var address: String? = null
+
+    @Inject
+    lateinit var hotmailApi: HotmailApi
+
     abstract fun onOAuthTokenSuccess(address: String?, token: OAuthToken?)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,12 +115,12 @@ abstract class OAuthActivity : BaseActivity() {
     }
 
     private fun getUserInfoForOutlook(resp: TokenResponse) {
-        HotmailModule.provideHotmailApi().profile(AuthorizationHeader(resp.accessToken))
+        hotmailApi.profile(AuthorizationHeader(resp.accessToken!!))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { profile: HotmailProfile?, throwable: Throwable? ->
                 if (profile != null) {
-                    address = profile.emails.account
+                    address = profile.emails!!.account
                     val token = OAuthToken()
                     token.accountType = DMAccountType.TYPE_HOTMAIL
                     token.access_token = resp.accessToken
@@ -126,7 +132,7 @@ abstract class OAuthActivity : BaseActivity() {
     }
 
     private fun getUserInfoForYahoo(resp: TokenResponse) {
-        YahooModule.provideYahooApi().profile(AuthorizationHeader(resp.accessToken))
+        YahooModule.provideYahooApi().profile(AuthorizationHeader(resp.accessToken!!))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { profile: YahooProfileResponse?, throwable: Throwable? ->

@@ -1,13 +1,11 @@
-package com.kongpf8848.dmail.login.oauth.hotmail;
+package com.kongpf8848.dmail.login.oauth.hotmail
 
-import com.kongpf8848.dmail.login.oauth.AuthorizationHeader;
+import com.kongpf8848.dmail.login.oauth.AuthorizationHeader
+import io.reactivex.Single
+import retrofit2.http.GET
+import retrofit2.http.Header
 
-import io.reactivex.Single;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
-
-public interface HotmailApi {
-
+interface HotmailApi {
     @GET("/v5.0/me")
-    Single<HotmailProfile> profile(@Header("Authorization") AuthorizationHeader header);
+    fun profile(@Header("Authorization") header: AuthorizationHeader?): Single<HotmailProfile>
 }

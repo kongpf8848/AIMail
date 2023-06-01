@@ -1,11 +1,7 @@
-package com.kongpf8848.dmail.login.oauth.qualifiers;
+package com.kongpf8848.dmail.login.oauth.qualifiers
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Qualifier;
+import javax.inject.Qualifier
 
 @Qualifier
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Hotmail {
-}
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Hotmail 

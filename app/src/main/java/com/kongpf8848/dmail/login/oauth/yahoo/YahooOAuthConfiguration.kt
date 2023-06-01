@@ -5,7 +5,7 @@ import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
 
 class YahooOAuthConfiguration : OAuthConfiguration {
     override val accountType= DMAccountType.TYPE_YAHOO
-    override val clientId=Companion.clientSecret
+    override val clientId=Companion.clientId
     override val clientSecret= Companion.clientSecret
     override val authorizationURL= Companion.authorizationURL
     override val tokenURL = Companion.tokenURL

@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail.login.oauth.yahoo;
+package com.kongpf8848.dmail.login.oauth.yahoo
 
 /**
  * {
@@ -19,87 +19,14 @@ package com.kongpf8848.dmail.login.oauth.yahoo;
  * "picture": "xxx.jpg"
  * }
  */
-public class YahooProfileResponse {
-
-    private String sub;
-    private String name;
-    private String given_name;
-    private String family_name;
-    private String locale;
-    private String email;
-    private boolean email_verified;
-    private String nickname;
-    private String picture;
-
-    public String getSub() {
-        return sub;
-    }
-
-    public void setSub(String sub) {
-        this.sub = sub;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGiven_name() {
-        return given_name;
-    }
-
-    public void setGiven_name(String given_name) {
-        this.given_name = given_name;
-    }
-
-    public String getFamily_name() {
-        return family_name;
-    }
-
-    public void setFamily_name(String family_name) {
-        this.family_name = family_name;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isEmail_verified() {
-        return email_verified;
-    }
-
-    public void setEmail_verified(boolean email_verified) {
-        this.email_verified = email_verified;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+class YahooProfileResponse {
+    var sub: String? = null
+    var name: String? = null
+    var given_name: String? = null
+    var family_name: String? = null
+    var locale: String? = null
+    var email: String? = null
+    var email_verified = false
+    var nickname: String? = null
+    var picture: String? = null
 }

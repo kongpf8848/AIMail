@@ -10,9 +10,8 @@ import com.kongpf8848.dmail.bean.OAuthToken
 import com.kongpf8848.dmail.login.oauth.AuthorizationHeader
 import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
 import com.kongpf8848.dmail.login.oauth.hotmail.HotmailApi
-import com.kongpf8848.dmail.login.oauth.hotmail.HotmailModule
 import com.kongpf8848.dmail.login.oauth.hotmail.HotmailProfile
-import com.kongpf8848.dmail.login.oauth.yahoo.YahooModule
+import com.kongpf8848.dmail.login.oauth.yahoo.YahooApi
 import com.kongpf8848.dmail.login.oauth.yahoo.YahooProfileResponse
 import com.kongpf8848.dmail.util.TokenUtils.getEmailFromIdToken
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,6 +27,9 @@ abstract class OAuthActivity : BaseActivity() {
 
     @Inject
     lateinit var hotmailApi: HotmailApi
+
+    @Inject
+    lateinit var yahooApi: YahooApi
 
     abstract fun onOAuthTokenSuccess(address: String?, token: OAuthToken?)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,7 +134,7 @@ abstract class OAuthActivity : BaseActivity() {
     }
 
     private fun getUserInfoForYahoo(resp: TokenResponse) {
-        YahooModule.provideYahooApi().profile(AuthorizationHeader(resp.accessToken!!))
+        yahooApi.profile(AuthorizationHeader(resp.accessToken!!))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { profile: YahooProfileResponse?, throwable: Throwable? ->

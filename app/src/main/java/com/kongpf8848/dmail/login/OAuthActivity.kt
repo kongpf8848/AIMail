@@ -74,7 +74,7 @@ abstract class OAuthActivity : BaseActivity() {
     private fun getAuthorizationCodeSuccess(r: AuthorizationResponse) {
         var authentication: ClientAuthentication? = null
         authentication = if (!TextUtils.isEmpty(config!!.clientSecret)) {
-            ClientSecretPost(config!!.clientSecret)
+            ClientSecretPost(config!!.clientSecret!!)
         } else {
             NoClientAuthentication.INSTANCE
         }

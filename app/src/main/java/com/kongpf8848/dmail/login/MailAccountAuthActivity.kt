@@ -57,7 +57,7 @@ class MailAccountAuthActivity : BaseActivity() {
             val intent = Intent(this, MessageViewListActivity::class.java)
             startActivity(intent)
             finish()
-        } else if (DMAccountType.TYPE_EXCHAGE == accountType) {
+        } else if (DMAccountType.TYPE_EXCHANGE == accountType) {
             val url = ""
             val username = DomainUtils.getUsername(address)
             val domain = DomainUtils.getDomain(address)

@@ -11,6 +11,10 @@ import com.kongpf8848.dmail.login.oauth.AuthorizationHeader
 import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
 import com.kongpf8848.dmail.login.oauth.hotmail.HotmailApi
 import com.kongpf8848.dmail.login.oauth.hotmail.HotmailProfile
+import com.kongpf8848.dmail.login.oauth.qualifiers.Google
+import com.kongpf8848.dmail.login.oauth.qualifiers.Hotmail
+import com.kongpf8848.dmail.login.oauth.qualifiers.Office365
+import com.kongpf8848.dmail.login.oauth.qualifiers.Yahoo
 import com.kongpf8848.dmail.login.oauth.yahoo.YahooApi
 import com.kongpf8848.dmail.login.oauth.yahoo.YahooProfileResponse
 import com.kongpf8848.dmail.util.TokenUtils.getEmailFromIdToken
@@ -21,9 +25,27 @@ import javax.inject.Inject
 
 abstract class OAuthActivity : BaseActivity() {
 
-    private lateinit var authService: AuthorizationService
-    private var config: OAuthConfiguration? = null
+    private lateinit var authService : AuthorizationService
+
     private var address: String? = null
+
+    lateinit var config: OAuthConfiguration
+
+    @Inject
+    @field:Google
+    lateinit var googleConfiguration: OAuthConfiguration
+
+    @Inject
+    @field:Hotmail
+    lateinit var hotmailConfiguration: OAuthConfiguration
+
+    @Inject
+    @field:Office365
+    lateinit var office365Configuration: OAuthConfiguration
+
+    @Inject
+    @field:Yahoo
+    lateinit var yahooConfiguration: OAuthConfiguration
 
     @Inject
     lateinit var hotmailApi: HotmailApi
@@ -32,6 +54,7 @@ abstract class OAuthActivity : BaseActivity() {
     lateinit var yahooApi: YahooApi
 
     abstract fun onOAuthTokenSuccess(address: String?, token: OAuthToken?)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         authService = AuthorizationService(this)
@@ -42,15 +65,21 @@ abstract class OAuthActivity : BaseActivity() {
         if (resultCode != RESULT_OK) {
             return
         }
-        if (requestCode== RC_OAUTH) {
+        if (requestCode == RC_OAUTH) {
             val resp = AuthorizationResponse.fromIntent(data!!)
             val ex = AuthorizationException.fromIntent(data)
             resp?.let { getAuthorizationCodeSuccess(it) } ?: ex?.printStackTrace()
         }
     }
 
-    protected fun doAuth(config: OAuthConfiguration, address: String?) {
-        this.config = config
+    protected fun doAuth(accountType: DMAccountType, address: String?) {
+        this.config = when (accountType) {
+            DMAccountType.TYPE_GOOGLE -> googleConfiguration
+            DMAccountType.TYPE_HOTMAIL -> hotmailConfiguration
+            DMAccountType.TYPE_OFFICE365 -> office365Configuration
+            DMAccountType.TYPE_YAHOO -> yahooConfiguration
+            else -> throw java.lang.RuntimeException("accountType is error:${accountType}")
+        }
         this.address = address
         val serviceConfig = AuthorizationServiceConfiguration(
             Uri.parse(config.authorizationURL),

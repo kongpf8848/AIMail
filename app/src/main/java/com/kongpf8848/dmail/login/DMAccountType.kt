@@ -6,5 +6,5 @@ enum class DMAccountType {
     TYPE_YAHOO,
     TYPE_OFFICE365,
     TYPE_IMAP,
-    TYPE_EXCHAGE
+    TYPE_EXCHANGE
 }

@@ -8,36 +8,13 @@ import com.kongpf8848.dmail.activity.MessageViewListActivity;
 import com.kongpf8848.dmail.bean.MailConfig;
 import com.kongpf8848.dmail.bean.OAuthToken;
 import com.kongpf8848.dmail.login.oauth.DaggerOAuthComponent;
-import com.kongpf8848.dmail.login.oauth.OAuthConfiguration;
-import com.kongpf8848.dmail.login.oauth.qualifiers.Google;
-import com.kongpf8848.dmail.login.oauth.qualifiers.Hotmail;
-import com.kongpf8848.dmail.login.oauth.qualifiers.Office365;
-import com.kongpf8848.dmail.login.oauth.qualifiers.Yahoo;
 import com.kongpf8848.dmail.mailcore.MailCore2Api;
 import com.kongpf8848.dmail.mailcore.SessionManager;
 import com.libmailcore.ConnectionType;
 
-import javax.inject.Inject;
-
 public class LoginActivity extends OAuthActivity {
 
     private MailConfig imapConfig;
-
-    @Inject
-    @Google
-    OAuthConfiguration googleConfiguration;
-
-    @Inject
-    @Hotmail
-    OAuthConfiguration hotmailConfiguration;
-
-    @Inject
-    @Office365
-    OAuthConfiguration office365Configuration;
-
-    @Inject
-    @Yahoo
-    OAuthConfiguration yahooConfiguration;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +51,7 @@ public class LoginActivity extends OAuthActivity {
         imapConfig.host = "imap.gmail.com";
         imapConfig.connection_type = ConnectionType.ConnectionTypeTLS;
         imapConfig.port = 993;
-        doAuth(googleConfiguration, null);
+        doAuth(DMAccountType.TYPE_GOOGLE, null);
     }
 
     private void onClickOutlook() {
@@ -82,7 +59,7 @@ public class LoginActivity extends OAuthActivity {
         imapConfig.host = "imap-mail.outlook.com";
         imapConfig.connection_type = ConnectionType.ConnectionTypeTLS;
         imapConfig.port = 993;
-        doAuth(hotmailConfiguration, null);
+        doAuth(DMAccountType.TYPE_HOTMAIL, null);
     }
 
     private void onClickOffice365() {
@@ -90,7 +67,7 @@ public class LoginActivity extends OAuthActivity {
         imapConfig.host = "outlook.office365.com";
         imapConfig.connection_type = ConnectionType.ConnectionTypeTLS;
         imapConfig.port = 993;
-        doAuth(office365Configuration, null);
+        doAuth(DMAccountType.TYPE_OFFICE365, null);
     }
 
     private void onClickYahoo() {
@@ -98,7 +75,7 @@ public class LoginActivity extends OAuthActivity {
         imapConfig.host = "imap.mail.yahoo.com";
         imapConfig.connection_type = ConnectionType.ConnectionTypeTLS;
         imapConfig.port = 993;
-        doAuth(yahooConfiguration, null);
+        doAuth(DMAccountType.TYPE_YAHOO, null);
     }
 
     private void onClickOther() {
@@ -109,7 +86,7 @@ public class LoginActivity extends OAuthActivity {
 
     private void onClickExchange() {
         Intent intent = new Intent(this, MailAccountAuthActivity.class);
-        intent.putExtra("accountType",DMAccountType.TYPE_EXCHAGE.toString());
+        intent.putExtra("accountType",DMAccountType.TYPE_EXCHANGE.toString());
         startActivity(intent);
     }
 

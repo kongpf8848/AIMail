@@ -10,6 +10,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DMail.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/DMail.buildSrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DMail.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/DMail.buildSrc.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DMail.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/DMail.buildSrc.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_base/DMail.lib_base.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.test.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_ews/DMail.lib_ews.test.iml" />

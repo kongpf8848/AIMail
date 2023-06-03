@@ -1,12 +1,12 @@
 object Config{
-    const val compileSdkVersion = 31
-    const val buildToolsVersion = "31.0.2"
+    const val compileSdkVersion = 33
+    const val buildToolsVersion = "33.0.2"
     const val ndkVersion="24.0.8215888"
     const val applicationId="com.kongpf8848.dmail"
     const val minSdkVersion = 24
-    const val targetSdkVersion =31
+    const val targetSdkVersion =33
     const val versionCode = 1
-    const val versionName = "0.0.1"
+    const val versionName = "0.1"
 }
 
 object Versions {

@@ -113,7 +113,7 @@ abstract class OAuthActivity : BaseActivity() {
         ) { resp: TokenResponse?, ex: AuthorizationException? ->
             if (resp != null) {
                 Log.d(
-                    TAG,
+                    "JACK8",
                     "getAuthorizationCodeSuccess() called with: resp = [" + resp.jsonSerializeString() + "]"
                 )
                 if (config!!.accountType == DMAccountType.TYPE_HOTMAIL) {
@@ -130,7 +130,7 @@ abstract class OAuthActivity : BaseActivity() {
                         token.expire_time = resp.accessTokenExpirationTime
                         onOAuthTokenSuccess(address, token)
                     }
-                } else if (config!!.accountType == DMAccountType.TYPE_GOOGLE || config!!.accountType == DMAccountType.TYPE_OFFICE365) {
+                } else if (config.accountType == DMAccountType.TYPE_GOOGLE || config!!.accountType == DMAccountType.TYPE_OFFICE365) {
                     address = getEmailFromIdToken(resp.idToken!!)
                     val token = OAuthToken()
                     token.accountType = config!!.accountType
@@ -140,7 +140,7 @@ abstract class OAuthActivity : BaseActivity() {
                     onOAuthTokenSuccess(address, token)
                 }
             } else {
-                Log.e(TAG, "getAuthorizationCodeSuccess() called with: ex = [$ex]")
+                Log.e("JACK8", "getAuthorizationCodeSuccess() called with: ex = [$ex]")
             }
         }
     }

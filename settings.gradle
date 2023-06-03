@@ -1,4 +1,5 @@
 rootProject.name="DMail"
 include ':app'
+include ':lib_base'
 include ':lib_res'
 include ':lib_ews'

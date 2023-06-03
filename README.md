@@ -15,5 +15,4 @@ Click on Gmail for OAuth2 authorization
 Click IMAP and enter your user name and password/authorization code to log in
 
 
-
     

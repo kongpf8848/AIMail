@@ -12,13 +12,13 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
         android:largeHeap="true"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".login.LoginActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:name=".activity.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,46 +27,57 @@
         </activity>
 
         <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".login.MailAccountAuthActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.MessageViewListActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_messageview_list" />
+            android:label="@string/title_messageview_list"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.MessageViewDetailActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_messageview_detail" />
+            android:label="@string/title_messageview_detail"
+            android:screenOrientation="portrait" />
 
 
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"
             android:exported="true"
-            tools:node="replace"
-            >
+            tools:node="replace">
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="com.googleusercontent.apps.262622259280-5qb3vtj68d5dtudmaif4g9vd3cpar8r3" />
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="msauth" android:host="com.fsck.k9.debug"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.fsck.k9.debug"
+                    android:scheme="msauth" />
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="com.kongpf8848.dmail" android:path="//oauth2redirect"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:path="//oauth2redirect"
+                    android:scheme="com.kongpf8848.dmail" />
             </intent-filter>
 
 

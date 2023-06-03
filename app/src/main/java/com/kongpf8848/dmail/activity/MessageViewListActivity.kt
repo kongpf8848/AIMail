@@ -7,11 +7,8 @@ import com.kongpf8848.dmail.mailcore.MailCore2Api
 import com.kongpf8848.dmail.messagelist.MessageViewListFragment
 import com.libmailcore.IMAPMessage
 import okhttp3.OkHttpClient
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLConnection
 
-class MessageViewListActivity : BaseActivity(), MessageViewListFragment.Callbacks {
+class MessageViewListActivity : com.kongpf8848.dmail.library.base.BaseActivity(), MessageViewListFragment.Callbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messageview_list)

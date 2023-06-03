@@ -6,7 +6,7 @@ import android.view.MenuItem
 import com.kongpf8848.dmail.R
 import com.kongpf8848.dmail.messagelist.MessageViewDetailFragment
 
-class MessageViewDetailActivity : BaseActivity() {
+class MessageViewDetailActivity : com.kongpf8848.dmail.library.base.BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messageview_detail)

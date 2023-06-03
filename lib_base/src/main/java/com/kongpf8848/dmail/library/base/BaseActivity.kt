@@ -1,4 +1,4 @@
-package com.kongpf8848.dmail.activity
+package com.kongpf8848.dmail.library.base
 
 import androidx.appcompat.app.AppCompatActivity
 

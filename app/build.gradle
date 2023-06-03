@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -23,8 +24,12 @@ android {
         }
     }
 
+    buildFeatures {
+        dataBinding true
+    }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 
     compileOptions {
@@ -44,10 +49,15 @@ repositories {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation(name: 'mailcore2-android-4', ext: 'aar')
     implementation project(':lib_res')
+    api project(':lib_base')
     api project(':lib_ews')
     implementation AndroidX.appCompat
     implementation AndroidX.material
@@ -63,4 +73,5 @@ dependencies {
 
     implementation BuildDependencies.dagger
     kapt BuildDependencies.daggerCompiler
+
 }

@@ -1,5 +1,9 @@
 plugins {
     id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -20,6 +24,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,5 +47,20 @@ dependencies {
 
     implementation AndroidX.appCompat
     implementation AndroidX.material
+    implementation AndroidX.recyclerview
+    api AndroidX.core
+    api AndroidX.coreKtx
+    api AndroidX.databindingCommon
+    api AndroidX.databindingRuntime
+    api AndroidX.databindingAdapters
+    api AndroidX.lifecycleViewmodelKtx
+    api AndroidX.lifecycleLivedataKtx
+    api AndroidX.lifecycleRuntimeKtx
+    api AndroidX.lifecycleViewmodelSavedstate
+    kapt AndroidX.lifecycleCompiler
+    api AndroidX.lifecycleCommonJava8
+    api AndroidX.lifecycleService
+    api AndroidX.lifecycleProcess
+    api AndroidX.lifecycleReactivestreamsKtx
 
 }

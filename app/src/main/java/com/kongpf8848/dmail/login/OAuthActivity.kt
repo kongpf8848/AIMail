@@ -5,7 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import com.kongpf8848.dmail.activity.BaseActivity
+import com.kongpf8848.dmail.library.base.BaseActivity
 import com.kongpf8848.dmail.bean.OAuthToken
 import com.kongpf8848.dmail.login.oauth.AuthorizationHeader
 import com.kongpf8848.dmail.login.oauth.OAuthConfiguration
@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import net.openid.appauth.*
 import javax.inject.Inject
 
-abstract class OAuthActivity : BaseActivity() {
+abstract class OAuthActivity : com.kongpf8848.dmail.library.base.BaseActivity() {
 
     private lateinit var authService : AuthorizationService
 

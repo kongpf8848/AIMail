@@ -82,7 +82,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
-    <output url="file://$MODULE_DIR$/../../buildSrc/build/classes/java/main" />
+    <output url="file://$MODULE_DIR$/../../buildSrc/build/classes/kotlin/main" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../buildSrc/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../buildSrc/src/main/kotlin" isTestSource="false" />

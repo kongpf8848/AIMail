@@ -1,10 +1,9 @@
-package com.kongpf8848.dmail.activity
+package com.kongpf8848.dmail.messagelist
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import com.kongpf8848.dmail.R
-import com.kongpf8848.dmail.messagelist.MessageViewDetailFragment
 
 class MessageViewDetailActivity : com.kongpf8848.dmail.library.base.BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

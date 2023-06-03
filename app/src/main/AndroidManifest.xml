@@ -34,12 +34,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.MessageViewListActivity"
+            android:name=".messagelist.MessageViewListActivity"
             android:label="@string/title_messageview_list"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.MessageViewDetailActivity"
+            android:name=".messagelist.MessageViewDetailActivity"
             android:label="@string/title_messageview_detail"
             android:screenOrientation="portrait" />
 

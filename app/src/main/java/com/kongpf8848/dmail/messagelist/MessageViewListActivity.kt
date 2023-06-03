@@ -1,10 +1,9 @@
-package com.kongpf8848.dmail.activity
+package com.kongpf8848.dmail.messagelist
 
 import android.content.Intent
 import android.os.Bundle
 import com.kongpf8848.dmail.R
 import com.kongpf8848.dmail.mailcore.MailCore2Api
-import com.kongpf8848.dmail.messagelist.MessageViewListFragment
 import com.libmailcore.IMAPMessage
 import okhttp3.OkHttpClient
 

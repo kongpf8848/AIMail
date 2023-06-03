@@ -5,17 +5,17 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import com.kongpf8848.dmail.R
-import com.kongpf8848.dmail.library.base.BaseActivity
-import com.kongpf8848.dmail.activity.MessageViewListActivity
+import com.kongpf8848.dmail.messagelist.MessageViewListActivity
 import com.kongpf8848.dmail.exchange.ExchangeManager
 import com.kongpf8848.dmail.exchange.api.AccountApi
+import com.kongpf8848.dmail.library.base.BaseActivity
 import com.kongpf8848.dmail.mailcore.MailCore2Api
 import com.kongpf8848.dmail.mailcore.SessionManager
 import com.kongpf8848.dmail.util.DomainUtils
 import com.libmailcore.ConnectionType
 import kotlinx.android.synthetic.main.activity_account_auth.*
 
-class MailAccountAuthActivity : com.kongpf8848.dmail.library.base.BaseActivity() {
+class MailAccountAuthActivity : BaseActivity() {
 
     private var accountType: DMAccountType? = null;
     override fun onCreate(savedInstanceState: Bundle?) {

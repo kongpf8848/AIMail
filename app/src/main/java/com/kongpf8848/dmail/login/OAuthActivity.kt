@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import net.openid.appauth.*
 import javax.inject.Inject
 
-abstract class OAuthActivity : com.kongpf8848.dmail.library.base.BaseActivity() {
+abstract class OAuthActivity : BaseActivity() {
 
     private lateinit var authService : AuthorizationService
 

@@ -1,4 +1,4 @@
-# DMail
+# AIMail
 Open Source Email App for Android
 
 # Description

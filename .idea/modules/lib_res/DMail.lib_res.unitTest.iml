@@ -14,7 +14,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/../../../lib_res/build/intermediates/javac/debug/classes" />
     <output-test url="file://$MODULE_DIR$/../../../lib_res/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
@@ -23,7 +23,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../lib_res/src/test/java" isTestSource="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../lib_res/src/testDebug" />
-    <orderEntry type="jdk" jdkName="Android API 33 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="DMail.lib_res.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation:1.1.0" level="project" />

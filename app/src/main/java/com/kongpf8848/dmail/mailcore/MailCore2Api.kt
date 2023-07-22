@@ -93,7 +93,7 @@ class MailCore2Api private constructor() {
             path,
             IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders or IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure,
             IndexSet.indexSetWithRange(
-                Range(1, Range.RangeMax)
+                Range(1,20)
             )
         )
         op.start(object : OperationCallback {

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
-      <module name="DMail.app" target="11" />
-      <module name="DMail.buildSrc" target="11" />
-      <module name="DMail.buildSrc.main" target="11" />
-      <module name="DMail.buildSrc.test" target="11" />
-      <module name="DMail.lib_base" target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="DMail.app" target="17" />
+      <module name="DMail.buildSrc" target="17" />
+      <module name="DMail.buildSrc.main" target="17" />
+      <module name="DMail.buildSrc.test" target="17" />
+      <module name="DMail.lib_base" target="17" />
       <module name="DMail.lib_mailcore" target="11" />
-      <module name="DMail.lib_res" target="11" />
+      <module name="DMail.lib_res" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

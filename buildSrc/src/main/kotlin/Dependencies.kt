@@ -11,11 +11,11 @@ object Config{
 
 object Versions {
 
-    const val PLUGIN_GRADLE_VERSION="8.0.2"
+    const val PLUGIN_GRADLE_VERSION="8.7.2"
     const val PLUGIN_GOOGLE_SERVICE_VERSION = "4.3.10"
     const val PLUGIN_FIREBASE_CRASHLYTICS_VERSION = "2.4.1"
     const val PLUGIN_PROTOBUF_VERSION="0.8.8"
-    const val KOTLIN_VERSION = "1.7.10"
+    const val KOTLIN_VERSION = "2.1.0"
 
     const val ANDROIDX_APP_COMPAT_VERSION = "1.2.0"
     const val ANDROIDX_LEGACY_V4_VERSION = "1.0.0"

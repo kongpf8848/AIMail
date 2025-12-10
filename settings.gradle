@@ -1,4 +1,4 @@
-rootProject.name="DMail"
+rootProject.name="AIMail"
 include ':app'
 include ':lib_base'
 include ':lib_res'

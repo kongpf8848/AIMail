@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.widget.EditText
+import android.widget.TextView
 import com.kongpf8848.dmail.R
 import com.kongpf8848.dmail.messagelist.MessageViewListActivity
 import com.kongpf8848.dmail.exchange.ExchangeManager
@@ -13,16 +15,22 @@ import com.kongpf8848.dmail.mailcore.MailCore2Api
 import com.kongpf8848.dmail.mailcore.SessionManager
 import com.kongpf8848.dmail.util.DomainUtils
 import com.libmailcore.ConnectionType
-import kotlinx.android.synthetic.main.activity_account_auth.*
+
 
 class MailAccountAuthActivity : BaseActivity() {
 
     private var accountType: DMAccountType? = null;
+    private var tv_login: TextView?=null
+    private var et_username: EditText?=null
+    private var et_password: EditText?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_auth)
         initIntent()
-        tv_login.setOnClickListener { onClickLogin() }
+        tv_login=findViewById<TextView>(R.id.tv_login)
+        et_username=findViewById<EditText>(R.id.et_username)
+        et_password=findViewById<EditText>(R.id.et_password)
+        tv_login?.setOnClickListener { onClickLogin() }
     }
 
     private fun initIntent() {
@@ -31,8 +39,8 @@ class MailAccountAuthActivity : BaseActivity() {
     }
 
     private fun onClickLogin() {
-        var address = et_username.text.toString().trim()
-        var password = et_password.text.toString().trim()
+        var address = et_username!!.text.toString().trim()
+        var password = et_password!!.text.toString().trim()
         if (TextUtils.isEmpty(address) || TextUtils.isEmpty(password)) {
             return
         }

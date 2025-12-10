@@ -5,7 +5,7 @@
     <string name="title_messageview_detail">MessageView Detail</string>
 
     <string name="username">用户名</string>
-    <string name="password">密码</string>
+    <string name="password">密码/授权码</string>
     <string name="login">登录</string>
 
 </resources>

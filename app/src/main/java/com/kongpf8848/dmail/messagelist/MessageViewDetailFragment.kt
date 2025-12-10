@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.kongpf8848.dmail.R
 import com.kongpf8848.dmail.bean.MailInfo
@@ -14,12 +16,17 @@ import com.kongpf8848.dmail.util.UCallback
 import com.kongpf8848.dmail.util.Utils.writeFile
 import com.libmailcore.IMAPMessage
 import com.libmailcore.MailException
-import kotlinx.android.synthetic.main.fragment_messageview_detail.*
 import java.nio.charset.StandardCharsets
 
 class MessageViewDetailFragment : Fragment(), View.OnClickListener {
     private var message: IMAPMessage? = null
     private var mailInfo: MailInfo? = null
+
+    private var webView: WebView?=null
+    private var btn_unread: Button?=null
+    private var btn_banner:Button?=null
+    private var btn_save_eml:Button?=null
+    private var btn_delete:Button?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +44,15 @@ class MessageViewDetailFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        btn_unread.setOnClickListener(this)
-        btn_banner.setOnClickListener(this)
-        btn_save_eml.setOnClickListener(this)
-        btn_delete.setOnClickListener(this)
+        webView=view.findViewById<WebView>(R.id.webView)
+        btn_unread=view.findViewById<Button>(R.id.btn_unread)
+        btn_banner=view.findViewById<Button>(R.id.btn_banner)
+        btn_save_eml=view.findViewById<Button>(R.id.btn_save_eml)
+        btn_delete=view.findViewById<Button>(R.id.btn_delete)
+        btn_unread?.setOnClickListener(this)
+        btn_banner?.setOnClickListener(this)
+        btn_save_eml?.setOnClickListener(this)
+        btn_delete?.setOnClickListener(this)
         if (message != null) {
             MailCore2Api.instance.getMessage(
                 Constants.INBOX,

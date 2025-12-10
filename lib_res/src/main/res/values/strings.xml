@@ -5,7 +5,7 @@
     <string name="title_messageview_detail">MessageView Detail</string>
 
     <string name="username">UserName</string>
-    <string name="password">Password</string>
+    <string name="password">Password/AuthCode</string>
     <string name="login">Login</string>
 
 </resources>
